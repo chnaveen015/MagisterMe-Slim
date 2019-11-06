@@ -16,9 +16,9 @@ public class ResourceAppService {
 	@Autowired
 	ResourceInterface resourceInterface;
 	
-	public List<Resource> getResources()
+	public List<Resource> getResources(String resourceName)
 	{
-		List<Resource> resources=resourceInterface.findAll();
+		List<Resource> resources=resourceInterface.getResources(resourceName);
 		return resources;
 	}
 	public Resource deleteResource(Resource resource)

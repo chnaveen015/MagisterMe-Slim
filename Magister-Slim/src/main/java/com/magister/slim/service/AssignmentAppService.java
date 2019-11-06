@@ -13,15 +13,15 @@ public class AssignmentAppService {
 	@Autowired
 	AssignmentInterface assignmentInterface;
 	
-	public List<Assignment> getAssignments()
+	public List<Assignment> getAssignments(String assignmentName)
 	{
-		List<Assignment> assignments=assignmentInterface.findAll();
+		List<Assignment> assignments=assignmentInterface.getAssignments(assignmentName);
 		return assignments;
 	}
-	public Assignment deleteAssignment(Assignment assignment)
+	public int deleteAssignment(int assignmentId)
 	{
-		assignmentInterface.deleteById(assignment.getAssignmentId());
-		return assignment;
+		assignmentInterface.deleteById(assignmentId);
+		return assignmentId;
 	}
 	public Assignment addAssignment(Assignment assignment)
 	{

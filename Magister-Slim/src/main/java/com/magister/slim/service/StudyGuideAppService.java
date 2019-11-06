@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magister.slim.entity.Course;
-import com.magister.slim.entity.Student;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.references.CourseReference;
 import com.magister.slim.references.StudentReference;
@@ -21,9 +20,14 @@ public class StudyGuideAppService {
 	@Autowired
 	CourseAppService courseAppService;
 	
-	public StudyGuide getStudyGuides(int studyGuideid)
+	public StudyGuide getStudyGuide(int studyGuideid)
 	{
 		StudyGuide studyGuide=studyGuideInterface.findById(studyGuideid).get();
+		return studyGuide;
+	}
+	public List<StudyGuide> getStudyGuide(String studyGuideName)
+	{
+		List<StudyGuide> studyGuide=studyGuideInterface.getStudyGuides(studyGuideName);
 		return studyGuide;
 	}
 	public int deleteStudyGuide(int studyGuideId)
@@ -32,16 +36,11 @@ public class StudyGuideAppService {
 		return studyGuideId;
 	}
 	
-	public StudyGuide getStudyGuide(int studyGuideid) {
-		StudyGuide student=studyGuideInterface.findById(studyGuideid).get();
-		return student;
-	}
-	
 	public StudyGuide addStudyGuide(StudyGuide studyGuide)
 	{
 		Course course=new Course();
 		studyGuide.setActive(true);
-//	studyGuide.setCourseReference(new CourseReference(121,"English"));
+		studyGuide.setCourseReference(new CourseReference(121,"English"));
 		studyGuide.setStudents(studentDetails(1,"shreya"));
 		studyGuide.setStudyGuideName("StudyGuide1");
 		studyGuide.setTeacherReference(teacherDetails(4,"Tom"));
@@ -49,7 +48,7 @@ public class StudyGuideAppService {
 		studyGuideInterface.save(studyGuide);
 		course.setCourseId(121);
 		course.setStudyGuideReferences(studyGuideDetails(studyGuide.getStudyGuideIdId(), studyGuide.getStudyGuideName()));
-//		courseAppService.updateCourse(course);
+		courseAppService.updateCourse(course);
 		return studyGuide;
 	}
 	public List<StudyGuideReference> studyGuideDetails(int id ,String studyGuideName)
