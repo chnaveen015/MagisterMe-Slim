@@ -6,6 +6,14 @@ public class StudyGuideReference {
 	@Id
 	private int studyGuideId;
 	private String studyGuideName;
+	private boolean isActive;
+	
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 	public int getStudyGuideId() {
 		return studyGuideId;
 	}

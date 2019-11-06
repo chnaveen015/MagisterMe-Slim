@@ -1,6 +1,5 @@
 package com.magister.slim.entity;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -27,8 +26,8 @@ public class StudyGuide {
 	private CourseReference courseReference;
 	private OfferingReference offeringReference;
 	private OfferingLevelReference offeringLevelReference;
-	private Date validOnwards;
-	private Date validUpto;
+	private String validOnwards;
+	private String validUpto;
 	private boolean isDeleted;
 	private boolean active;
 	
@@ -41,7 +40,7 @@ public class StudyGuide {
 	public StudyGuide(int studyGuideId, String studyGuideName, TeacherReference teacherReference,
 			List<ThemeReference> themes, List<UnitReference> units, List<StudentReference> students,
 			CourseReference courseReference, OfferingReference offeringReference,
-			OfferingLevelReference offeringLevelReference, Date validOnwards, Date validUpto, boolean isDeleted,
+			OfferingLevelReference offeringLevelReference, String validOnwards, String validUpto, boolean isDeleted,
 			boolean active) {
 		super();
 		this.studyGuideId = studyGuideId;
@@ -112,16 +111,16 @@ public class StudyGuide {
 	public void setOfferingLevelReference(OfferingLevelReference offeringLevelReference) {
 		this.offeringLevelReference = offeringLevelReference;
 	}
-	public Date getValidOnwards() {
+	public String getValidOnwards() {
 		return validOnwards;
 	}
-	public void setValidOnwards(Date validOnwards) {
+	public void setValidOnwards(String validOnwards) {
 		this.validOnwards = validOnwards;
 	}
-	public Date getValidUpto() {
+	public String getValidUpto() {
 		return validUpto;
 	}
-	public void setValidUpto(Date validUpto) {
+	public void setValidUpto(String validUpto) {
 		this.validUpto = validUpto;
 	}
 	public boolean isDeleted() {
@@ -130,6 +129,7 @@ public class StudyGuide {
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+	
 	public int getStudyGuideId() {
 		return studyGuideId;
 	}
