@@ -28,15 +28,15 @@ public class UnitAppService {
 		return unit;
 	}
 	
-	public List<Unit> getUnits()
+	public List<Unit> getUnits(String unitName)
 	{
-		List<Unit> units=unitInterface.findAll();
+		List<Unit> units=unitInterface.getUnits(unitName);
 		return units;
 	}
-	public Unit deleteUnit(Unit unit)
+	public int deleteUnit(int unitId)
 	{
-		unitInterface.deleteById(unit.getUnitId());
-		return unit;
+		unitInterface.deleteById(unitId);
+		return unitId;
 	}
 	public Unit addUnit(Unit unit)
 	{

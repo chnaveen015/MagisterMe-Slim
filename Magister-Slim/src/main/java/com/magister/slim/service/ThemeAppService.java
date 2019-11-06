@@ -14,15 +14,15 @@ public class ThemeAppService {
 	@Autowired
 	ThemeInterface themeInterface;
 	
-	public List<Theme> getThemes()
+	public List<Theme> getThemes(String themeName)
 	{
-		List<Theme> themes=themeInterface.findAll();
+		List<Theme> themes=themeInterface.getThemes(themeName);
 		return themes;
 	}
-	public Theme deleteTheme(Theme theme)
+	public int deleteTheme(int themeId)
 	{
-		themeInterface.deleteById(theme.getThemeId());
-		return theme;
+		themeInterface.deleteById(themeId);
+		return themeId;
 	}
 	
 	public Theme addTheme(Theme theme,StudyGuideReference studyGuide)
@@ -48,5 +48,4 @@ public class ThemeAppService {
 		Theme theme=themeInterface.findById(themeid).get();
 		return theme;
 	}
-
 }
