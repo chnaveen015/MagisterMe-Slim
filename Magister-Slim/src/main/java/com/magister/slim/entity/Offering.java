@@ -12,7 +12,7 @@ public class Offering {
 	@Id
 	private int offeringid;
 	private String offeringName;
-	private List<OfferingLevelReference> offeringLevels;
+	private List<OfferingLevelReference> offeringLevelReferences;
 	private boolean isActive;
 	public int getOfferingid() {
 		return offeringid;
@@ -26,30 +26,32 @@ public class Offering {
 	public void setOfferingName(String offeringName) {
 		this.offeringName = offeringName;
 	}
-	public List<OfferingLevelReference> getOfferingLevels() {
-		return offeringLevels;
-	}
-	public void setOfferingLevels(List<OfferingLevelReference> list) {
-		this.offeringLevels = list;
-	}
+	
 	public boolean isActive() {
 		return isActive;
 	}
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+	
 	@Override
 	public String toString() {
-		return "Offering [offeringid=" + offeringid + ", offeringName=" + offeringName + ", offeringLevels="
-				+ offeringLevels + ", isActive=" + isActive + "]";
+		return "Offering [offeringid=" + offeringid + ", offeringName=" + offeringName + ", offeringLevelReferences="
+				+ offeringLevelReferences + ", isActive=" + isActive + "]";
 	}
-	public Offering(int offeringid, String offeringName, List<OfferingLevelReference> offeringLevels,
+	public Offering(int offeringid, String offeringName, List<OfferingLevelReference> offeringLevelReferences,
 			boolean isActive) {
 		super();
 		this.offeringid = offeringid;
 		this.offeringName = offeringName;
-		this.offeringLevels = offeringLevels;
+		this.offeringLevelReferences = offeringLevelReferences;
 		this.isActive = isActive;
+	}
+	public List<OfferingLevelReference> getOfferingLevelReferences() {
+		return offeringLevelReferences;
+	}
+	public void setOfferingLevelReferences(List<OfferingLevelReference> offeringLevelReferences) {
+		this.offeringLevelReferences = offeringLevelReferences;
 	}
 	public Offering()
 	{

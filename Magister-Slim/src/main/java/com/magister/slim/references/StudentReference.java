@@ -7,6 +7,8 @@ public class StudentReference {
 	@Id
 	private int id;
 	private String name;
+	private boolean isActive;
+	
 
 	public int getId() {
 		return id;
@@ -24,4 +26,27 @@ public class StudentReference {
 		this.name = name;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public StudentReference(int id, String name, boolean isActive) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.isActive = isActive;
+	}
+
+	@Override
+	public String toString() {
+		return "StudentReference [id=" + id + ", name=" + name + ", isActive=" + isActive + "]";
+	}
+	public StudentReference()
+	{
+		
+	}
 }

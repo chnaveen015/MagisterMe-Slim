@@ -11,7 +11,7 @@ import com.magister.slim.references.GroupReference;
 public class Teacher {
 	
 	@Id
-	private int teacherid;
+	private int teacherId;
 	private User userReference;
 	private String name;
 	private String address;
@@ -26,11 +26,11 @@ public class Teacher {
 	private int age;
 	private String gender;
 	private boolean isActive;
-	public int getTeacherid() {
-		return teacherid;
+	public int getTeacherId() {
+		return teacherId;
 	}
-	public void setTeacherid(int teacherid) {
-		this.teacherid = teacherid;
+	public void setTeacherId(int teacherid) {
+		this.teacherId = teacherid;
 	}
 	
 	public String getName() {
@@ -74,7 +74,7 @@ public class Teacher {
 	public Teacher(int teacherid, User userReference, String name, String address, long phoneno,
 			List<GroupReference> groupReference, int age, String gender, boolean isActive) {
 		super();
-		this.teacherid = teacherid;
+		this.teacherId = teacherid;
 		this.userReference = userReference;
 		this.name = name;
 		this.address = address;
@@ -86,7 +86,7 @@ public class Teacher {
 	}
 	@Override
 	public String toString() {
-		return "Teacher [teacherid=" + teacherid + ", userReference=" + userReference + ", name=" + name + ", address="
+		return "Teacher [teacherid=" + teacherId + ", userReference=" + userReference + ", name=" + name + ", address="
 				+ address + ", phoneno=" + phoneno + ", groupReference=" + groupReference + ", age=" + age + ", gender="
 				+ gender + ", isActive=" + isActive + "]";
 	}

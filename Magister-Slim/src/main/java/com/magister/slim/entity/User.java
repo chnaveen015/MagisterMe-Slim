@@ -13,15 +13,7 @@ public class User {
 	private int userid;
 	private String username;
 	private String password;
-	private role role;
 	public enum role{student , teacher;}
-	public void setUserType(role input){
-        role= input;
-    }
-	public role getRole()
-	{
-		return role;
-	}
 	private boolean active;
 	public int getUserid() {
 		return userid;
@@ -47,20 +39,18 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	@Override
-	public String toString() {
-		return "[username=" + username + ", password=" + password
-				+"]";
-	}
-	public User(int userid, String username, String password, com.magister.slim.entity.User.role role, boolean active) {
+	public User(int userid, String username, String password, boolean active) {
 		super();
 		this.userid = userid;
 		this.username = username;
 		this.password = password;
-		this.role = role;
 		this.active = active;
 	}
-	
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", username=" + username + ", password=" + password + ", active=" + active
+				+ "]";
+	}
 	public User()
 	{
 		

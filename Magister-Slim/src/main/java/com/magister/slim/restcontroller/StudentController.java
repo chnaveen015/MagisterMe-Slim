@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Student;
+import com.magister.slim.entity.Teacher;
 import com.magister.slim.service.StudentAppService;
 
 @RestController
-@RequestMapping("offering/offering-level/group/students")
+@RequestMapping("group/{groupId}/student")
 @CrossOrigin(origins = "http://localhost:4200")
 public class StudentController {
 
@@ -21,22 +22,21 @@ public class StudentController {
 	StudentAppService studentAppService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Student add(@RequestBody Student student) {
-		Student status = studentAppService.addStudent(student);
-		System.out.println(status);
-		return status;
+	public Student addStudent(@RequestBody Student studentDetails) {
+		Student status = studentAppService.addStudentDetails(studentDetails);
+		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
-	public Student delete(@RequestBody Student student, HttpServletRequest request, HttpServletResponse response) {
-		Student status = studentAppService.deleteStudent(student);
-		return status;
+	@RequestMapping(path="{studentId}",method = RequestMethod.DELETE)
+	public Student deleteStudentDetails(@RequestParam("studentId") int studenId) {
+		//Student status = studentAppService.deleteStudent(student);
+		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public Student update(@RequestBody Student student) {
-		Student status = studentAppService.addStudent(student);
-		return status;
+	@RequestMapping(path="{studentId}",method = RequestMethod.PUT)
+	public Student updateStudentDetails(@RequestParam("studentId") int studentId,@RequestBody Student student) {
+	//	Student status = studentAppService.addStudent(student);
+		return null;
 	}
 
 //	@RequestMapping(method = RequestMethod.GET)
@@ -46,7 +46,7 @@ public class StudentController {
 //	}
 
 	@RequestMapping(value = "/students", method = RequestMethod.GET)
-	public Student getStudent(@RequestParam int studentid) {
+	public Student getStudentDetails(@RequestParam int studentid) {
 		Student student = studentAppService.getStudent(studentid);
 		return student;
 

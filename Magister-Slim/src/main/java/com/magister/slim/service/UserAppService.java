@@ -30,16 +30,6 @@ public class UserAppService {
 		return user;
 	}
 
-	public User addUser(User user) {
-		user.setActive(true);
-		user.setUserid(user.getUserid());
-		user.setPassword(UserAppService.generatePassword());
-		user.setUsername(user.getUsername());
-		user.setUserType(user.getRole());
-		userInterface.save(user);
-		return user;
-	}
-
 	public static String generatePassword() {
 		int n = 9;
 		String x;
@@ -57,6 +47,12 @@ public class UserAppService {
 		returnValue.append(splchar.charAt(RANDOM.nextInt(splchar.length())));
 		x = returnValue.toString();
 		return x;
+	}
+
+	public User addUserDetails(User user) {
+		// TODO Auto-generated method stub
+		
+		return null;
 	}
 
 }

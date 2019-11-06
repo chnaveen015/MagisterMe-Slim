@@ -15,7 +15,7 @@ public class Course {
 	private int courseId;
 	private String courseName;
 	private List<StudyGuideReference> studyGuideReferences;
-	private List<GroupReference> groupReferencs;
+	private List<GroupReference> groupReferences;
 	private boolean isActive;
 
 	public int getCourseId() {
@@ -42,12 +42,12 @@ public class Course {
 		this.studyGuideReferences = studyGuideReferences;
 	}
 
-	public List<GroupReference> getGroupReferencs() {
-		return groupReferencs;
+	public List<GroupReference> getGroupReferences() {
+		return groupReferences;
 	}
 
-	public void setGroupReferencs(List<GroupReference> groupReferencs) {
-		this.groupReferencs = groupReferencs;
+	public void setGroupReferences(List<GroupReference> groupReferencs) {
+		this.groupReferences = groupReferencs;
 	}
 
 	public boolean isActive() {
@@ -61,7 +61,7 @@ public class Course {
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", studyGuideReferences="
-				+ studyGuideReferences + ", groupReferencs=" + groupReferencs + ", isActive=" + isActive + "]";
+				+ studyGuideReferences + ", groupReferencs=" + groupReferences + ", isActive=" + isActive + "]";
 	}
 
 	public Course(int courseId, String courseName, List<StudyGuideReference> studyGuideReferences,
@@ -70,7 +70,7 @@ public class Course {
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.studyGuideReferences = studyGuideReferences;
-		this.groupReferencs = groupReferencs;
+		this.groupReferences = groupReferencs;
 		this.isActive = isActive;
 	}
 	public Course()

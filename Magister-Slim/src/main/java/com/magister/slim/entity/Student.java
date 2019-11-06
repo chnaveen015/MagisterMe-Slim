@@ -13,7 +13,7 @@ public class Student {
 
 	@Id
 	private int id;
-	private User userReference;
+	private int userReference;
 	private List<GroupReference> groupReference;
 	private String name, gender;
 	private List<CourseReference> courseReference;
@@ -21,8 +21,26 @@ public class Student {
 	private boolean active;
 
 	
-	public List<GroupReference> getGroup() {
-		return groupReference;
+	
+	public Student(int id, int userReference, List<GroupReference> groupReference, String name, String gender,
+			List<CourseReference> courseReference, long phoneno, boolean active) {
+		super();
+		this.id = id;
+		this.userReference = userReference;
+		this.groupReference = groupReference;
+		this.name = name;
+		this.gender = gender;
+		this.courseReference = courseReference;
+		this.phoneno = phoneno;
+		this.active = active;
+	}
+
+	public int getUserReference() {
+		return userReference;
+	}
+
+	public void setUserReference(int userReference) {
+		this.userReference = userReference;
 	}
 
 	public void setGroup(List<GroupReference> groupReference) {
@@ -81,13 +99,7 @@ public class Student {
 		this.id = id;
 	}
 
-	public User getUserReference() {
-		return userReference;
-	}
-
-	public void setUserReference(User userReference) {
-		this.userReference = userReference;
-	}
+	
 
 	public List<GroupReference> getGroupReference() {
 		return groupReference;
@@ -97,18 +109,7 @@ public class Student {
 		this.groupReference = groupReference;
 	}
 
-	public Student(int id, User userReference, List<GroupReference> groupReference, String name, String gender,
-			List<CourseReference> courseReference, long phoneno, boolean active) {
-		super();
-		this.id = id;
-		this.userReference = userReference;
-		this.groupReference = groupReference;
-		this.name = name;
-		this.gender = gender;
-		this.courseReference = courseReference;
-		this.phoneno = phoneno;
-		this.active = active;
-	}
+	
 
 	@Override
 	public String toString() {

@@ -19,47 +19,7 @@ public class CourseAppService {
 	CourseInterface courseInterface;
 	@Autowired
 	GroupAppService groupAppService;
-	
-	public Course addCourse(Course course) {
-		Group group=new Group();
-		course.setStudyGuideReferences(course.getStudyGuideReferences());
-		course.setCourseId(course.getCourseId());
-		course.setActive(true);
-		course.setCourseName(course.getCourseName());
-		course.setGroupReferencs(course.getGroupReferencs());
-		courseInterface.save(course);
-		group.setGroupId(101);
-		group.setGroupName("group1");
-		group.setCoursesreference(courseDetails(course.getCourseId(),course.getCourseName()));
-		groupAppService.updateGroup(group);
-		return course;
-	}
-	public Course updateCourse(Course course)
-	{
-		Course c=courseInterface.findById(course.getCourseId()).get();
-		c.setStudyGuideReferences(course.getStudyGuideReferences());
-		c.setGroupReferencs(course.getGroupReferencs());
-		courseInterface.save(c);
-		return course;
-	}
-	public List<CourseReference> courseDetails(int id,String courseName)
-	{
-		List<CourseReference> courseReference=new ArrayList<CourseReference>();
-		CourseReference course=new CourseReference();
-		course.setCourseId(id);
-		course.setCourseName(courseName);
-		courseReference.add(course);
-		return courseReference;
-	}
-	public List<GroupReference> groupDetails(int id,String groupName)
-	{
-		GroupReference groupReference=new GroupReference();
-		List<GroupReference> gR=new ArrayList<GroupReference>();
-		groupReference.setGroupId(id);
-		groupReference.setGroupName(groupName);
-		gR.add(groupReference);
-		return gR;
-	}
+
 	public Course getCourse(int courseid) {
 		Course course=courseInterface.findById(courseid).get();
 		return course;
@@ -69,9 +29,76 @@ public class CourseAppService {
 		List<Course> course=courseInterface.findAll();
 		return course;
 	}
-	public Course deleteCourse(Course course)
-	{
-		courseInterface.deleteById(course.getCourseId());
-		return course;
+	
+	public Course addCourseDetails(GroupReference groupReference, Course courseDetails) {
+		if(courseInterface.save(courseDetails)!=null)
+		{
+			if(updateGroupReference(groupReference,courseDetails) && groupAppService.updateCourseReferences(groupReference,courseDetails))
+			{
+			
+					return courseDetails;
+			}
+			else
+				return null;
+		}
+			
+		return null;
 	}
-}
+	public boolean updateGroupReference(GroupReference groupReference,Course courseDetails)
+	{
+		List<GroupReference> groupReferences = new ArrayList<GroupReference>();
+		if(courseInterface.findById(courseDetails.getCourseId()).isPresent())
+		{
+		Course course = courseInterface.findById(courseDetails.getCourseId()).get();
+		groupReferences = course.getGroupReferences();
+		if (groupReferences == null)
+			groupReferences = new ArrayList<GroupReference>();
+		groupReferences.add(groupReference);
+		course.setGroupReferences(groupReferences);
+		if(courseInterface.save(course)!=null)
+			return true;
+		else
+			return false;
+		}
+	return false;
+	}
+	public Course deleteCourse(int groupId, int courseId) {
+		if(courseInterface.findById(courseId).isPresent())
+		{
+		Course courseDetails=courseInterface.findById(courseId).get();
+			courseDetails.setActive(false);
+			courseInterface.save(courseDetails);
+			boolean status=groupAppService.deleteCourseReference(groupId,courseId);
+		   return courseDetails;
+		}
+		return null;
+	}
+	public Course updateCourseDetails(int groupId, Course course) {
+		if (courseInterface.findById(course.getCourseId()).isPresent()) {
+			Course courseDetails = courseInterface.findById(course.getCourseId()).get();
+			courseDetails.setCourseName(course.getCourseName());
+			courseInterface.save(courseDetails);
+			boolean status = groupAppService.updateCourseReferenceDetails(groupId,course);
+			return courseDetails;
+		}
+		return null;
+	}
+	public Course getCourseDetailsById(int groupId, int courseId) {
+		if ((courseInterface.findById(courseId).isPresent())) {
+			Course courseDetails = courseInterface.findById(courseId).get();
+				return courseDetails;
+
+		} else
+			return null;
+
+	}
+	public Course getCourseByName(int groupId, String courseName) {
+		Course courseDetails = courseInterface.getCourseByName(courseName);
+		if (courseDetails != null)
+			return courseDetails;
+		else
+			return null;
+	}
+	}
+
+

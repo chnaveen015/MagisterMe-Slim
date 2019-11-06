@@ -1,15 +1,14 @@
 package com.magister.slim.restcontroller;
 
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List; 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Offering;
-import com.magister.slim.entity.OfferingLevel;
 import com.magister.slim.service.OfferingAppService;
 
 @RestController
@@ -23,28 +22,33 @@ public class OfferingController {
 	OfferingAppService offeringAppService;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public Offering add(@RequestBody Offering offering) {
-		Offering status = offeringAppService.addOffering(offering);
-		System.out.println(status);
+	public Offering createOffering(@RequestBody Offering offering) {
+		Offering status = offeringAppService.addOfferingDetails(offering);
 		return status;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
-	public Offering delete(@RequestBody Offering offering, HttpServletRequest request, HttpServletResponse response) {
-		Offering status = offeringAppService.deleteOffering(offering);
-		return status;
+	@RequestMapping(path="/{offeringId}",method = RequestMethod.DELETE)
+	public Offering deleteOfferingDetails(@PathVariable("offeringId") int offeringId) {
+		 return offeringAppService.deleteOffering(offeringId);
+		
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT)
-	public Offering update(@RequestBody Offering offering) {
-		OfferingLevel offeringLevel=new OfferingLevel();
-		Offering status = offeringAppService.updateOffering(offeringLevel);
+	@RequestMapping(path="{offeringId}",method = RequestMethod.PUT)
+	public Offering updateOfferingDetails(@PathVariable("offeringId") int offeringId,@RequestBody Offering offering) {
+		offering.setOfferingid(offeringId);
+		Offering status = offeringAppService.updateOfferingName(offering);
 		return status;
+	}
+	@RequestMapping(path="/{offeringId}",method = RequestMethod.GET)
+	public Offering getOfferingDetail(@PathVariable("offeringId") int offeringId) {
+		Offering offering = offeringAppService.getOfferingById(offeringId);
+		return offering;
+
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Offering> get() {
-		List<Offering> offerings = offeringAppService.getOfferings();
+	public List<Offering> getOfferingDetails(@RequestParam String offeringName) {
+		List<Offering> offerings = offeringAppService.getOfferings(offeringName);
 		return offerings;
 
 	}

@@ -23,10 +23,10 @@ public class LoginController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public User insert(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
 		user.setActive(true);
-		User status = loginAppService.loginValidation(user);
+	//	User status = loginAppService.loginValidation(user);
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
-		System.out.println(status);
-		return status;
+	//	System.out.println(status);
+		return null;
 	}
 }

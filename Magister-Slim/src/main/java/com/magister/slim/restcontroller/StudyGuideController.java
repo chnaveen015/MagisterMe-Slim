@@ -1,7 +1,5 @@
 package com.magister.slim.restcontroller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +20,21 @@ public class StudyGuideController {
 	@Autowired
 	StudyGuideAppService studyGuideAppService;
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public StudyGuide add(@RequestBody StudyGuide studyGuide) {
 		StudyGuide status = studyGuideAppService.addStudyGuide(studyGuide);
 		return status;
 	}
 
-	@RequestMapping(value = "/{studyGuideId}", method = RequestMethod.DELETE)
+	@RequestMapping(value="{studyGuideId}",method = RequestMethod.DELETE)
 	public int delete(@PathVariable("studyGuideId") int studyGuideId, HttpServletRequest request,
 			HttpServletResponse response) {
 		int status = studyGuideAppService.deleteStudyGuide(studyGuideId);
 		return status;
 	}
-
-	@RequestMapping(value = "/{studyGuideId}", method = RequestMethod.PUT)
-	public StudyGuide update(@PathVariable("studyGuideId") int studyGuideId, @RequestBody StudyGuide studyGuide) {
+	
+	@RequestMapping(value = "", method = RequestMethod.PUT)
+	public StudyGuide update(@RequestBody StudyGuide studyGuide) {
 		StudyGuide status = studyGuideAppService.addStudyGuide(studyGuide);
 		return status;
 	}
@@ -44,13 +42,6 @@ public class StudyGuideController {
 	@RequestMapping(method = RequestMethod.GET)
 	public StudyGuide get(@RequestParam int studyGuideId) {
 		StudyGuide studyGuide = studyGuideAppService.getStudyGuide(studyGuideId);
-		return studyGuide;
-
-	}
-
-	@RequestMapping(value = "/{studyGuideName}", method = RequestMethod.GET)
-	public List<StudyGuide> get(@PathVariable("studyGuideName") String studyGuideName) {
-		List<StudyGuide> studyGuide = studyGuideAppService.getStudyGuide(studyGuideName);
 		return studyGuide;
 
 	}

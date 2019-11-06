@@ -27,18 +27,12 @@ public class StudentAppService {
 		List<Student> student1=studentInterface.findAll();
 		return student1;
 	}
-	public Student addStudent(Student student)
-	{
-		User user=new User();
-		student.setUserReference(user);
-		user.setUserType(role.student);
-		user.setUserid(student.getid());
-		studentInterface.save(student);
-		userAppService.addUser(user);
-		return student;
-	}
 	public Student getStudent(int studentid) {
 		Student student=studentInterface.findById(studentid).get();
 		return student;
+	}
+	public Student addStudentDetails(Student studentDetails) {
+		
+		return studentInterface.save(studentDetails);
 	}
 }
