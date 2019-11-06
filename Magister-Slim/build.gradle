@@ -1,0 +1,45 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.9.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'com.auth0:java-jwt:3.8.3'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+	// https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper
+    compile group: 'org.apache.tomcat', name: 'tomcat-jasper', version: '9.0.26'
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-servlet-api
+    compile group: 'org.apache.tomcat', name: 'tomcat-servlet-api', version: '9.0.26' 
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.1.9.RELEASE'
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'   
+    // https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
+    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
+    
+}
