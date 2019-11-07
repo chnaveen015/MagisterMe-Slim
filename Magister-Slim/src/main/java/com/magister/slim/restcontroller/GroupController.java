@@ -34,6 +34,7 @@ public class GroupController {
 
 	@PostMapping()
 	public Group createGroup(@PathVariable("offeringId")int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@RequestBody Group groupDetails) {
+		groupDetails.setActive(true);
 		
 		OfferingLevelReference offeringLevelReference=offeringLevelAppService.getOfferingLevelReference(offeringId,offeringLevelId);
 		if(offeringLevelReference!=null)

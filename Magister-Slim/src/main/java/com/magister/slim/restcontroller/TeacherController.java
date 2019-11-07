@@ -27,6 +27,7 @@ public class TeacherController {
 
 	@PostMapping()
 	public Teacher addTeacherDetails(@RequestBody Teacher teacherDetails) {
+		teacherDetails.setActive(true);
 		Teacher status = teacherAppService.addTeacher(teacherDetails);
 		return status;
 	}

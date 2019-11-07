@@ -117,37 +117,3 @@ public class UnitAppService {
 		unitInterface.save(unit);
 		return true;
 	}
-//	public StudyGuideReference studyGuideDetails(int id ,String studyGuideName)
-//	{
-//		StudyGuideReference studyGuideReference=new StudyGuideReference();
-//		studyGuideReference.setStudyGuideId(id);
-//		studyGuideReference.setStudyGuideName(studyGuideName);
-//		return studyGuideReference;
-//	}
-//	public ThemeReference themeDetails(int id ,String themeName)
-//	{
-//		ThemeReference themeReference=new ThemeReference();
-//		themeReference.setThemeId(id);
-//		themeReference.setThemeName(themeName);
-//		return themeReference;
-//	}
-//	public List<ResourceReference> resourceDetails(int id,String resourceName)
-//	{
-//		ResourceReference resourceReference=new ResourceReference();
-//		List<ResourceReference> resources=new ArrayList<ResourceReference>();
-//		resourceReference.setResourceId(id);
-//		resourceReference.setResourceName(resourceName);
-//		resources.add(resourceReference);
-//		return resources;
-//	}
-//	public List<AssignmentReference> assignmentDetails(int id,String assignmentName)
-//	{
-//		AssignmentReference assignmentReference=new AssignmentReference();
-//		List<AssignmentReference> assignments=new ArrayList<AssignmentReference>();
-//		assignmentReference.setAssignmentId(id);
-//		assignmentReference.setAssignmentName(assignmentName);
-//		assignments.add(assignmentReference);
-//		return assignments;
-//	}
-
-}
