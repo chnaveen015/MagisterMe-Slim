@@ -68,7 +68,6 @@ public class GroupAppService {
 
 	public Group addGroupDetails(Group groupDetails) {
 		if (groupInterface.save(groupDetails) != null) {
-
 			offeringLevelAppService.updateGroupReferences(groupDetails);
 			teacherAppService.updateGroupReferences(groupDetails);
 			return groupDetails;

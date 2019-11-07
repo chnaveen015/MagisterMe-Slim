@@ -31,6 +31,7 @@ public class CourseController {
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public Course addCourse(@PathVariable("offeringId") int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@PathVariable("groupId")int groupId,@RequestBody Course courseDetails) {
+		courseDetails.setActive(true);
 		GroupReference groupReference=groupAppService.getGroupReference(groupId,offeringLevelId);
 		if(groupReference!=null)
 		{

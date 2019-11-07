@@ -37,6 +37,8 @@ public class AssignmentController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Assignment createAssignment(@RequestBody Assignment assignment) {
+
+		assignment.setActive(true);
 		Assignment status = assignmentAppService.addAssignment(assignment);
 		return status;
 	}
