@@ -1,9 +1,12 @@
 package com.magister.slim.entity;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.magister.slim.references.AssignmentReference;
+import com.magister.slim.references.AssignmentResultReference;
 import com.magister.slim.references.StudentReference;
 
 @Document
@@ -12,7 +15,7 @@ public class AssignmentResult {
 	@Id
 	private int assignmentResultId;
 	private StudentReference studentReference;
-	private AssignmentReference assignmentReference;
+	private List<AssignmentResultReference> assignmentReference;
 	private int assignedMarks;
 	private int totalmarks;
 
@@ -32,12 +35,12 @@ public class AssignmentResult {
 		this.studentReference = studentReference;
 	}
 
-	public AssignmentReference getAssignmentReference() {
+	public List<AssignmentResultReference> getAssignmentReference() {
 		return assignmentReference;
 	}
 
-	public void setAssignmentReference(AssignmentReference assignmentReference) {
-		this.assignmentReference = assignmentReference;
+	public void setAssignmentReference(List<AssignmentResultReference> list) {
+		this.assignmentReference = list;
 	}
 
 	public int getAssignedMarks() {
@@ -64,7 +67,7 @@ public class AssignmentResult {
 	}
 
 	public AssignmentResult(int assignmentResultId, StudentReference studentReference,
-			AssignmentReference assignmentReference, int assignedMarks, int totalmarks) {
+			List<AssignmentResultReference> assignmentReference, int assignedMarks, int totalmarks) {
 		super();
 		this.assignmentResultId = assignmentResultId;
 		this.studentReference = studentReference;
