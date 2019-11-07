@@ -4,7 +4,7 @@ public class ThemeReference {
 
 	private int themeId;
 	private String themeName;
-
+	private boolean isActive;
 	public int getThemeId() {
 		return themeId;
 	}
@@ -21,4 +21,11 @@ public class ThemeReference {
 		this.themeName = themeName;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 }

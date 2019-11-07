@@ -23,35 +23,33 @@ public class StudyGuideController {
 	StudyGuideAppService studyGuideAppService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public StudyGuide add(@RequestBody StudyGuide studyGuide) {
+	public StudyGuide createStudyGuide(@RequestBody StudyGuide studyGuide) {
 		StudyGuide status = studyGuideAppService.addStudyGuide(studyGuide);
 		return status;
 	}
 
 	@RequestMapping(value = "/{studyGuideId}", method = RequestMethod.DELETE)
-	public int delete(@PathVariable("studyGuideId") int studyGuideId, HttpServletRequest request,
+	public int deleteStudyGuideDetails(@PathVariable("studyGuideId") int studyGuideId, HttpServletRequest request,
 			HttpServletResponse response) {
 		int status = studyGuideAppService.deleteStudyGuide(studyGuideId);
 		return status;
 	}
 
 	@RequestMapping(value = "/{studyGuideId}", method = RequestMethod.PUT)
-	public StudyGuide update(@PathVariable("studyGuideId") int studyGuideId, @RequestBody StudyGuide studyGuide) {
-		StudyGuide status = studyGuideAppService.addStudyGuide(studyGuide);
+	public StudyGuide updateStudyGuideDetails(@PathVariable("studyGuideId") int studyGuideId, @RequestBody StudyGuide studyGuide) {
+		StudyGuide status = studyGuideAppService.updateStudyGuide(studyGuide,studyGuideId);
 		return status;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public StudyGuide get(@RequestParam int studyGuideId) {
+	@RequestMapping(value = "/{studyGuideId}",method = RequestMethod.GET)
+	public StudyGuide getStudyGuideDetail(@PathVariable("studyGuideId") int studyGuideId) {
 		StudyGuide studyGuide = studyGuideAppService.getStudyGuide(studyGuideId);
 		return studyGuide;
-
 	}
 
-	@RequestMapping(value = "/{studyGuideName}", method = RequestMethod.GET)
-	public List<StudyGuide> get(@PathVariable("studyGuideName") String studyGuideName) {
+	@RequestMapping(method = RequestMethod.GET)
+	public List<StudyGuide> getStudyGuideDetails(@RequestParam String studyGuideName) {
 		List<StudyGuide> studyGuide = studyGuideAppService.getStudyGuide(studyGuideName);
 		return studyGuide;
-
 	}
 }
