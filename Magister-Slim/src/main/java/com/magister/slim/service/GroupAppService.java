@@ -68,7 +68,6 @@ public class GroupAppService {
 
 	public Group addGroupDetails(Group groupDetails) {
 		if (groupInterface.save(groupDetails) != null) {
-
 			offeringLevelAppService.updateGroupReferences(groupDetails);
 			teacherAppService.updateGroupReferences(groupDetails);
 			return groupDetails;
@@ -171,9 +170,9 @@ public class GroupAppService {
 			return null;
 	}
 
-	public Group getGroupByName(int offeringLevelId, String groupName) {
-		Group groupDetails = groupInterface.getGroupByName(groupName);
-		if (groupDetails != null && groupDetails.getOfferingLevelReference().getOfferingLevelId() == offeringLevelId)
+	public List<Group> getGroupByName(int offeringLevelId, String groupName) {
+		List<Group> groupDetails = groupInterface.getGroupByName(groupName);
+		if (groupDetails != null)
 			return groupDetails;
 		else
 			return null;

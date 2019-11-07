@@ -12,6 +12,8 @@ import com.magister.slim.entity.Teacher;
 import com.magister.slim.entity.User;
 import com.magister.slim.entity.User.role;
 import com.magister.slim.references.GroupReference;
+import com.magister.slim.references.TeacherReference;
+import com.magister.slim.repository.GroupInterface;
 import com.magister.slim.repository.TeacherInterface;
 
 @Service
@@ -23,6 +25,8 @@ public class TeacherAppService {
 	UserAppService userAppService;
 	@Autowired
 	GroupAppService groupAppService;
+	@Autowired
+	GroupInterface groupInterface;
 	
 	public List<Teacher> getTeachers()
 	{
@@ -57,6 +61,10 @@ public class TeacherAppService {
 			groupReferences = new ArrayList<GroupReference>();
 		groupReferences.add(new GroupReference(groupDetails.getGroupId(),groupDetails.getGroupName(),true));
 		teacher.setGroupReference(groupReferences);
+		groupDetails.getTeacherReference().setTeacherid(teacher.getTeacherId());
+		groupDetails.getTeacherReference().setName(teacher.getName());
+		groupDetails.getTeacherReference().setActive(true);
+		groupInterface.save(groupDetails);
 		if(teacherInterface.save(teacher)!=null)
 		return true;
 		}

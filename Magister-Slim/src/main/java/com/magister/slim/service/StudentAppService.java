@@ -17,10 +17,17 @@ public class StudentAppService {
 	@Autowired
 	UserAppService userAppService;
 	
-	public Student deleteStudent(Student student)
+	public Student deleteStudent(int studentId)
 	{
-		studentInterface.deleteById(student.getid());
+		if(studentInterface.findById(studentId).isPresent())
+		{
+		Student student=studentInterface.findById(studentId).get();
+		student.setActive(false);
+		studentInterface.save(student);
 		return student;
+		}
+		else
+			return null;
 	}
 	public List<Student> getStudents(String studentName)
 	{
@@ -34,5 +41,9 @@ public class StudentAppService {
 	public Student addStudentDetails(Student studentDetails) {
 		
 		return studentInterface.save(studentDetails);
+	}
+	public Student updateStudentName(Student student) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

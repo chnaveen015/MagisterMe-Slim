@@ -24,26 +24,21 @@ public class StudentController {
 	@RequestMapping(method = RequestMethod.POST)
 	public Student addStudent(@RequestBody Student studentDetails) {
 		Student status = studentAppService.addStudentDetails(studentDetails);
-		return null;
+		return status;
 	}
 
 	@RequestMapping(path="{studentId}",method = RequestMethod.DELETE)
-	public Student deleteStudentDetails(@RequestParam("studentId") int studenId) {
-		//Student status = studentAppService.deleteStudent(student);
-		return null;
+	public Student deleteStudentDetails(@RequestParam("studentId") int studentId) {
+		Student status = studentAppService.deleteStudent(studentId);
+		return status;
 	}
 
 	@RequestMapping(path="{studentId}",method = RequestMethod.PUT)
 	public Student updateStudentDetails(@RequestParam("studentId") int studentId,@RequestBody Student student) {
-	//	Student status = studentAppService.addStudent(student);
+		student.setStudentId(studentId);
+		Student status = studentAppService.updateStudentName(student);
 		return null;
 	}
-
-//	@RequestMapping(method = RequestMethod.GET)
-//	public List<Student> get(@RequestParam String studentName) {
-//		List<Student> students = studentAppService.getStudents(studentName);
-//		return students;
-//	}
 
 	@RequestMapping(value = "/students", method = RequestMethod.GET)
 	public Student getStudentDetails(@RequestParam int studentid) {

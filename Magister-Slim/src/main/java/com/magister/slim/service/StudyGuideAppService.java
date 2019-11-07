@@ -119,7 +119,7 @@ public class StudyGuideAppService {
 		course.setCourseId(studyGuide.getCourseReference().getCourseId());
 		course.setStudyGuideReferences(
 				studyGuideDetails(studyGuide.getStudyGuideIdId(), studyGuide.getStudyGuideName()));
-		courseAppService.updateCourse(course);
+	//	courseAppService.updateCourse(course);
 		return studyGuide;
 	}
 

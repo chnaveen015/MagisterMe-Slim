@@ -105,6 +105,7 @@ public class UnitAppService {
 		units.add(unitReference);
 		return units;
 	}
+
 	public boolean deleteAssignmentReference(int unitId, int assignmentId) {
 		Unit unit = unitInterface.findById(unitId).get();
 		List<AssignmentReference> assignmentReferences = unit.getAssignments().stream().map(assignmentReference -> {
@@ -113,41 +114,10 @@ public class UnitAppService {
 			}
 			return assignmentReference;
 		}).collect(Collectors.toList());
-		unit.setAssignments(assignmentReferences);;
+		unit.setAssignments(assignmentReferences);
+		;
 		unitInterface.save(unit);
 		return true;
-	}
-//	public StudyGuideReference studyGuideDetails(int id ,String studyGuideName)
-//	{
-//		StudyGuideReference studyGuideReference=new StudyGuideReference();
-//		studyGuideReference.setStudyGuideId(id);
-//		studyGuideReference.setStudyGuideName(studyGuideName);
-//		return studyGuideReference;
-//	}
-//	public ThemeReference themeDetails(int id ,String themeName)
-//	{
-//		ThemeReference themeReference=new ThemeReference();
-//		themeReference.setThemeId(id);
-//		themeReference.setThemeName(themeName);
-//		return themeReference;
-//	}
-//	public List<ResourceReference> resourceDetails(int id,String resourceName)
-//	{
-//		ResourceReference resourceReference=new ResourceReference();
-//		List<ResourceReference> resources=new ArrayList<ResourceReference>();
-//		resourceReference.setResourceId(id);
-//		resourceReference.setResourceName(resourceName);
-//		resources.add(resourceReference);
-//		return resources;
-//	}
-//	public List<AssignmentReference> assignmentDetails(int id,String assignmentName)
-//	{
-//		AssignmentReference assignmentReference=new AssignmentReference();
-//		List<AssignmentReference> assignments=new ArrayList<AssignmentReference>();
-//		assignmentReference.setAssignmentId(id);
-//		assignmentReference.setAssignmentName(assignmentName);
-//		assignments.add(assignmentReference);
-//		return assignments;
-//	}
 
+	}
 }

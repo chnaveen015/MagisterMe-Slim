@@ -23,6 +23,7 @@ public class OfferingController {
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public Offering createOffering(@RequestBody Offering offering) {
+		offering.setActive(true);
 		Offering status = offeringAppService.addOfferingDetails(offering);
 		return status;
 	}

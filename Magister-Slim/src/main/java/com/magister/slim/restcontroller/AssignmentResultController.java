@@ -45,8 +45,8 @@ public class AssignmentResultController {
 		assignmentReference.setAssignmentName(assignment.getAssignmentName());
 		assignmentReference.setActive(true);
 		if(assignmentResult.getStudentReference()!=null) {
-		student = studentInterface.findById(assignmentResult.getStudentReference().getId()).get();
-		studentReference.setId(student.getid());
+		//student = studentInterface.findById(assignmentResult.getStudentReference().getId()).get();
+	//	studentReference.setId(student.getid());
 		studentReference.setName(student.getName());
 		studentReference.setActive(true);
 		assignmentResult.setStudentReference(studentReference);}

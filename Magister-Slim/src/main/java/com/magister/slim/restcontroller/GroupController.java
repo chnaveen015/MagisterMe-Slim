@@ -34,6 +34,7 @@ public class GroupController {
 
 	@PostMapping()
 	public Group createGroup(@PathVariable("offeringId")int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@RequestBody Group groupDetails) {
+		groupDetails.setActive(true);
 		
 		OfferingLevelReference offeringLevelReference=offeringLevelAppService.getOfferingLevelReference(offeringId,offeringLevelId);
 		if(offeringLevelReference!=null)
@@ -68,7 +69,7 @@ public class GroupController {
 
 	}
 	@GetMapping()
-	public Group getGroupDetailsByName(@RequestParam("offeringId") int offeringId,
+	public List<Group> getGroupDetailsByName(@RequestParam("offeringId") int offeringId,
 			@RequestParam("offeringLevelId") int offeringLevelId,@RequestParam("groupName") String groupName) {
 		return groupAppService.getGroupByName(offeringLevelId,groupName);
 

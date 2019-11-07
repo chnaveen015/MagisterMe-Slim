@@ -12,7 +12,7 @@ import com.magister.slim.references.GroupReference;
 public class Student {
 
 	@Id
-	private int id;
+	private int studentId;
 	private int userReference;
 	private List<GroupReference> groupReference;
 	private String name, gender;
@@ -21,19 +21,7 @@ public class Student {
 	private boolean active;
 
 	
-	
-	public Student(int id, int userReference, List<GroupReference> groupReference, String name, String gender,
-			List<CourseReference> courseReference, long phoneno, boolean active) {
-		super();
-		this.id = id;
-		this.userReference = userReference;
-		this.groupReference = groupReference;
-		this.name = name;
-		this.gender = gender;
-		this.courseReference = courseReference;
-		this.phoneno = phoneno;
-		this.active = active;
-	}
+
 
 	public int getUserReference() {
 		return userReference;
@@ -79,9 +67,6 @@ public class Student {
 		this.active = active;
 	}
 
-	public int getid() {
-		return id;
-	}
 	
 	public List<CourseReference> getCourseReference() {
 		return courseReference;
@@ -91,14 +76,7 @@ public class Student {
 		this.courseReference = courseReference;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	
 	
 
 	public List<GroupReference> getGroupReference() {
@@ -110,17 +88,38 @@ public class Student {
 	}
 
 	
+	public Student(int studentId, int userReference, List<GroupReference> groupReference, String name, String gender,
+			List<CourseReference> courseReference, long phoneno, boolean active) {
+		super();
+		this.studentId = studentId;
+		this.userReference = userReference;
+		this.groupReference = groupReference;
+		this.name = name;
+		this.gender = gender;
+		this.courseReference = courseReference;
+		this.phoneno = phoneno;
+		this.active = active;
+	}
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", userReference=" + userReference + ", groupReference=" + groupReference
-				+ ", name=" + name + ", gender=" + gender + ", courseReference=" + courseReference + ", phoneno="
-				+ phoneno + ", active=" + active + "]";
+		return "Student [studentId=" + studentId + ", userReference=" + userReference + ", groupReference="
+				+ groupReference + ", name=" + name + ", gender=" + gender + ", courseReference=" + courseReference
+				+ ", phoneno=" + phoneno + ", active=" + active + "]";
+	}
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
 	}
 
 	public Student()
 	{
 		
 	}
+	
 
 }

@@ -35,6 +35,7 @@ public class OfferingLevelController {
 	@PostMapping(value = "")
 	public OfferingLevel createOfferingLevel(@PathVariable("offeringId") int offeringId,
 			@RequestBody OfferingLevel offeringLevel) {
+		offeringLevel.setActive(true);
 		Offering offering = offeringAppService.getOfferingById(offeringId);
 		if (offering != null) {
 			offeringLevel.setOfferingReference(
