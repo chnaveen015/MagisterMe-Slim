@@ -2,7 +2,6 @@ package com.magister.slim.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.magister.slim.references.AssignmentReference;
 import com.magister.slim.references.StudentReference;
 
@@ -36,8 +35,8 @@ public class AssignmentResult {
 		return assignmentReference;
 	}
 
-	public void setAssignmentReference(AssignmentReference assignmentReference) {
-		this.assignmentReference = assignmentReference;
+	public void setAssignmentReference(AssignmentReference list) {
+		this.assignmentReference = list;
 	}
 
 	public int getAssignedMarks() {
@@ -72,10 +71,9 @@ public class AssignmentResult {
 		this.assignedMarks = assignedMarks;
 		this.totalmarks = totalmarks;
 	}
-	public AssignmentResult()
-	{
-		
+
+	public AssignmentResult() {
+
 	}
-	
 
 }
