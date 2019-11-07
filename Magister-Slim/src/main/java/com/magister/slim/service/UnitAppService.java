@@ -3,12 +3,12 @@ package com.magister.slim.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Theme;
 import com.magister.slim.entity.Unit;
+import com.magister.slim.references.AssignmentReference;
 import com.magister.slim.references.UnitReference;
 import com.magister.slim.repository.StudyGuideInterface;
 import com.magister.slim.repository.ThemeInterface;
@@ -25,6 +25,9 @@ public class UnitAppService {
 	StudyGuideInterface studyGuideInterface;
 	@Autowired
 	UnitAppService unitAppService;
+
+	ThemeAppService themeAppService;
+	StudyGuideAppService studyGuideAppService;
 
 	public Unit getUnit(int unitid, int themeId, int studyGuideId) {
 		if (unitInterface.findById(unitid).isPresent()) {
@@ -50,17 +53,16 @@ public class UnitAppService {
 		return unitReferences;
 	}
 
-	public int deleteUnit(int unitId) {
-//		Unit unit = unitInterface.findById(unitId).get();
-//		Theme theme = themeInterface.findById(unit.getThemeReference().getThemeId()).get();
-//		StudyGuide studyGuide = studyGuideInterface.findById(unit.getStudyGuideReference().getStudyGuideId()).get();
-//		theme.getUnits().remove(unitId);
-//		studyGuide.getUnits().remove(unitId);
-		unitInterface.deleteById(unitId);
+	public int deleteUnit(int unitId, int themeId, int studyGuideId) {
+		Unit unit = unitInterface.findById(unitId).get();
+		unit.setActive(false);
+		studyGuideAppService.deleteUnitReference(unitId, studyGuideId);
+		themeAppService.deleteUnitReference(unitId, themeId);
+		unitInterface.save(unit);
 		return unitId;
 	}
 
-	public Unit updateUnit(Unit unit ,Theme theme,StudyGuide studyGuide) {
+	public Unit updateUnit(Unit unit, Theme theme, StudyGuide studyGuide) {
 		themeInterface.save(theme);
 		studyGuideInterface.save(studyGuide);
 		unitInterface.save(unit);
@@ -103,36 +105,15 @@ public class UnitAppService {
 		units.add(unitReference);
 		return units;
 	}
-//	public StudyGuideReference studyGuideDetails(int id ,String studyGuideName)
-//	{
-//		StudyGuideReference studyGuideReference=new StudyGuideReference();
-//		studyGuideReference.setStudyGuideId(id);
-//		studyGuideReference.setStudyGuideName(studyGuideName);
-//		return studyGuideReference;
-//	}
-//	public ThemeReference themeDetails(int id ,String themeName)
-//	{
-//		ThemeReference themeReference=new ThemeReference();
-//		themeReference.setThemeId(id);
-//		themeReference.setThemeName(themeName);
-//		return themeReference;
-//	}
-//	public List<ResourceReference> resourceDetails(int id,String resourceName)
-//	{
-//		ResourceReference resourceReference=new ResourceReference();
-//		List<ResourceReference> resources=new ArrayList<ResourceReference>();
-//		resourceReference.setResourceId(id);
-//		resourceReference.setResourceName(resourceName);
-//		resources.add(resourceReference);
-//		return resources;
-//	}
-//	public List<AssignmentReference> assignmentDetails(int id,String assignmentName)
-//	{
-//		AssignmentReference assignmentReference=new AssignmentReference();
-//		List<AssignmentReference> assignments=new ArrayList<AssignmentReference>();
-//		assignmentReference.setAssignmentId(id);
-//		assignmentReference.setAssignmentName(assignmentName);
-//		assignments.add(assignmentReference);
-//		return assignments;
-//	}
-}
+	public boolean deleteAssignmentReference(int unitId, int assignmentId) {
+		Unit unit = unitInterface.findById(unitId).get();
+		List<AssignmentReference> assignmentReferences = unit.getAssignments().stream().map(assignmentReference -> {
+			if (assignmentReference.getAssignmentId() == assignmentId) {
+				assignmentReference.setActive(false);
+			}
+			return assignmentReference;
+		}).collect(Collectors.toList());
+		unit.setAssignments(assignmentReferences);;
+		unitInterface.save(unit);
+		return true;
+	}

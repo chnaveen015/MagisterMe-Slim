@@ -20,7 +20,7 @@ import com.magister.slim.repository.StudentInterface;
 import com.magister.slim.service.AssignmentResultAppService;
 
 @RestController
-@RequestMapping("student/{studentId}/studyguide/{studyGuideId}/theme/{themeId}/unit/{unitId}/assignment/{assignmentId}/assignmentResult")
+@RequestMapping("studyGuide/{studyGuideId}/theme/{themeId}/unit/{unitId}/assignment/{assignmentId}/assignmentResult")
 @CrossOrigin(origins = "http://localhost:4200")
 public class AssignmentResultController {
 
@@ -30,47 +30,59 @@ public class AssignmentResultController {
 	StudentInterface studentInterface;
 	@Autowired
 	AssignmentResultAppService assignmentResultAppService;
-	
-	StudentReference studentReference=new StudentReference();
-	Student student=new Student();
-	AssignmentReference assignmentReference=new AssignmentReference();
-	Assignment assignment=new Assignment();
+
+	StudentReference studentReference = new StudentReference();
+	Student student = new Student();
+	AssignmentReference assignmentReference = new AssignmentReference();
+	Assignment assignment = new Assignment();
+
 	@RequestMapping(method = RequestMethod.POST)
 	public AssignmentResult createAssignmentResult(@RequestBody AssignmentResult assignmentResult,
-			@PathVariable("studentId") int studentId, @PathVariable("assignmentId") int assignmentId,@PathVariable("unitId") int unitId) {
-		assignment=assignmentInterface.findById(assignmentId).get();
+			@PathVariable("assignmentId") int assignmentId, @PathVariable("unitId") int unitId,
+			@PathVariable("themeId") int themeId, @PathVariable("studyGuideId") int studyGuideId) {
+		assignment = assignmentInterface.findById(assignmentId).get();
 		assignmentReference.setAssignmentId(assignment.getAssignmentId());
 		assignmentReference.setAssignmentName(assignment.getAssignmentName());
-		student=studentInterface.findById(studentId).get();
+		assignmentReference.setActive(true);
+		if(assignmentResult.getStudentReference()!=null) {
+		student = studentInterface.findById(assignmentResult.getStudentReference().getId()).get();
 		studentReference.setId(student.getid());
 		studentReference.setName(student.getName());
-		AssignmentResult status = assignmentResultAppService.addAssignmentResult(assignmentResult,unitId);
+		studentReference.setActive(true);
+		assignmentResult.setStudentReference(studentReference);}
+		assignmentResult.setAssignmentReference(assignmentReference);
+		AssignmentResult status = assignmentResultAppService.addAssignmentResult(assignmentResult);
 		return status;
 	}
 
-	@RequestMapping(value = "/{assignmentResultId}", method = RequestMethod.DELETE)
-	public AssignmentResult deleteAssignmentResultdetails(@RequestBody AssignmentResult assignmentResult,
-			@PathVariable("assignmentResultId") int assignmentResultId) {
-		AssignmentResult status = assignmentResultAppService.deleteAssignmentResult(assignmentResult);
-		return status;
-	}
+//	@RequestMapping(value = "/{assignmentResultId}", method = RequestMethod.DELETE)
+//	public AssignmentResult deleteAssignmentResultdetails(@PathVariable("assignmentResultId") int assignmentResultId) {
+//		AssignmentResult status = assignmentResultAppService.deleteAssignmentResult(assignmentResultId);
+//		return status;
+//	}
 
 	@RequestMapping(value = "/{assignmentResultId}", method = RequestMethod.PUT)
 	public AssignmentResult updateAssignmentResultdetails(@RequestBody AssignmentResult assignmentResult,
-			@PathVariable("assignmentResultId") int assignmentResultId) {
-		AssignmentResult status = assignmentResultAppService.updateAssignmentResult(assignmentResult);
+			@PathVariable("assignmentResultId") int assignmentResultId,
+			@PathVariable("unitId") int unitId, @PathVariable("studyGuideId") int studyGuideId,
+			@PathVariable("themeId") int themeId) {
+		AssignmentResult status = assignmentResultAppService.updateAssignmentResult(assignmentResultId);
 		return status;
 	}
 
 	@RequestMapping(value = "/{assignmentResultId}", method = RequestMethod.GET)
-	public AssignmentResult getAssignmentResultDetail(@PathVariable("assignmentResultId") int assignmentResultId) {
-		AssignmentResult assignmentResult = assignmentResultAppService.getAssignmentResult(assignmentResultId);
+	public AssignmentResult getAssignmentResultDetail(@PathVariable("assignmentResultId") int assignmentResultId,@PathVariable("assignmentId") int assignmentId,
+			@PathVariable("unitId") int unitId, @PathVariable("studyGuideId") int studyGuideId,
+			@PathVariable("themeId") int themeId) {
+		AssignmentResult assignmentResult = assignmentResultAppService.getAssignmentResult(assignmentResultId,assignmentId, studyGuideId, themeId);
 		return assignmentResult;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<AssignmentResult> getAssignmentResultdetails(@RequestParam int assignmentResultId) {
-		List<AssignmentResult> assignmentResults = assignmentResultAppService.getAssignmentResults();
+	public List<AssignmentResult> getAssignmentResultdetails(@RequestParam int assignmentResultId,
+			@PathVariable("assignmentId") int assignmentId, @PathVariable("unitId") int unitId,
+			@PathVariable("studyGuideId") int studyGuideId, @PathVariable("themeId") int themeId) {
+		List<AssignmentResult> assignmentResults = assignmentResultAppService.getAssignmentResults(assignmentResultId);
 		return assignmentResults;
 	}
 

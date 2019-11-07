@@ -44,6 +44,7 @@ public class UnitController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public Unit createUnit(@RequestBody Unit unit, @PathVariable("studyGuideId") int studyGuideId,
 			@PathVariable("themeId") int themeId) {
+		if (studyGuideInterface.findById(studyGuideId).isPresent()&&themeInterface.findById(themeId).isPresent()) {
 		studyGuide = studyGuideInterface.findById(studyGuideId).get();
 		studyGuideReference.setStudyGuideId(studyGuide.getStudyGuideId());
 		studyGuideReference.setStudyGuideName(studyGuide.getStudyGuideName());
@@ -54,17 +55,20 @@ public class UnitController {
 		themeReference.setActive(theme.isActive());
 		unit.setStudyGuideReference(studyGuideReference);
 		unit.setThemeReference(themeReference);
+		unit.setActive(true);
 		Unit status = unitAppService.addUnit(unit);
 		System.out.println(status);
-		return status;
+		return status;}
+		else
+			return null;
 	}
 
 	@RequestMapping(value = "/{unitId}", method = RequestMethod.DELETE)
 	public int deleteUnitDetails(@PathVariable("unitId") int unitId, @PathVariable("studyGuideId") int studyGuideId,
 			@PathVariable("themeId") int themeId) {
-		studyGuideReference.setStudyGuideId(studyGuideId);
-		themeReference.setThemeId(themeId);
-		int status = unitAppService.deleteUnit(unitId);
+//		studyGuideReference.setStudyGuideId(studyGuideId);
+//		themeReference.setThemeId(themeId);
+		int status = unitAppService.deleteUnit(unitId,themeId,studyGuideId);
 		return status;
 	}
 

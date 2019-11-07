@@ -44,6 +44,7 @@ public class ThemeController {
 			studyGuideReference.setStudyGuideName(studyGuide.getStudyGuideName());
 			studyGuideReference.setActive(studyGuide.isActive());
 			theme.setStudyGuideReference(studyGuideReference);
+			theme.setActive(true);
 			Theme status = themeAppService.addTheme(theme, studyGuide);
 			System.out.println(status);
 			return status;

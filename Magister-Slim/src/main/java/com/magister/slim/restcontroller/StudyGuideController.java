@@ -24,6 +24,7 @@ public class StudyGuideController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public StudyGuide createStudyGuide(@RequestBody StudyGuide studyGuide) {
+		studyGuide.setActive(true);
 		StudyGuide status = studyGuideAppService.addStudyGuide(studyGuide);
 		return status;
 	}

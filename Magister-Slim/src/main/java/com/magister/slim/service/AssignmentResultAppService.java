@@ -1,19 +1,12 @@
 package com.magister.slim.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.magister.slim.entity.Assignment;
 import com.magister.slim.entity.AssignmentResult;
-import com.magister.slim.entity.Unit;
-import com.magister.slim.references.AssignmentReference;
-import com.magister.slim.references.AssignmentResultReference;
-import com.magister.slim.references.ThemeReference;
 import com.magister.slim.repository.AssignmentInterface;
 import com.magister.slim.repository.AssignmentResultInterface;
-import com.magister.slim.repository.UnitInterface;
 
 @Service
 public class AssignmentResultAppService {
@@ -23,43 +16,59 @@ public class AssignmentResultAppService {
 	@Autowired
 	AssignmentInterface assignmentInterface;
 
-	public List<AssignmentResult> getAssignmentResults() {
+	public List<AssignmentResult> getAssignmentResults(int assignmentId) {
 		List<AssignmentResult> assignmentResults = assignmentResultInterface.findAll();
-		return assignmentResults;
-	}
-
-	public AssignmentResult deleteAssignmentResult(AssignmentResult assignmentResult) {
-		assignmentResultInterface.deleteById(assignmentResult.getAssignedMarks());
+		List<AssignmentResult> assignmentResult = assignmentResults.stream().map(assignmentResultReference -> {
+			if (assignmentResultReference.getAssignmentReference().getAssignmentId() == assignmentId) {
+				return assignmentResultReference;
+			} else
+				return null;
+		}).collect(Collectors.toList());
 		return assignmentResult;
 	}
 
-	public AssignmentResult addAssignmentResult(AssignmentResult assignmentResult, int unitId) {
+//	public AssignmentResult deleteAssignmentResult(int assignmentResultId) {
+//		AssignmentResult assignmentResult=assignmentResultInterface.findById(assignmentResultId).get();
+//		assignmentResult.set
+//		assignmentResultInterface.save(assignmentResult);
+//		return assignmentResult;
+//	}
+
+	public AssignmentResult addAssignmentResult(AssignmentResult assignmentResult) {
 		assignmentResultInterface.save(assignmentResult);
-	//	assignmentResult=assignmentResultInterface.findById(assignmentResult.getAssignmentReference().getAssignmentId()).get();
-	//	assignmentResult.setAssignmentReference(assignmentDetails(assignmentResult.getAssignmentReference().,assignmentResult));
+		// assignmentResult=assignmentResultInterface.findById(assignmentResult.getAssignmentReference().getAssignmentId()).get();
+		// assignmentResult.setAssignmentReference(assignmentDetails(assignmentResult.getAssignmentReference().,assignmentResult));
 		return assignmentResult;
 	}
 
-	private List<AssignmentResultReference> assignmentDetails(int assignmentId,
-			AssignmentResult assignmentResult) {
-		AssignmentReference assignmentReference = new AssignmentReference();
-		List<AssignmentResultReference> assignmentResults = new ArrayList<AssignmentResultReference>();
-		assignmentResults = assignmentResult.getAssignmentReference();
-		if (assignmentResults == null)
-			assignmentResults = new ArrayList<AssignmentResultReference>();
-//		assignmentReference.setAssignmentResultId(assignmentId);
-//		assignmentResults.add(assignmentReference);
-		return assignmentResults;
-	}
+//	private List<AssignmentResultReference> assignmentDetails(int assignmentId,
+//			AssignmentResult assignmentResult) {
+//		AssignmentReference assignmentReference = new AssignmentReference();
+//		List<AssignmentResultReference> assignmentResults = new ArrayList<AssignmentResultReference>();
+//		assignmentResults = assignmentResult.getAssignmentReference();
+//		if (assignmentResults == null)
+//			assignmentResults = new ArrayList<AssignmentResultReference>();
+////		assignmentReference.setAssignmentResultId(assignmentId);
+////		assignmentResults.add(assignmentReference);
+//		return assignmentResults;
+//	}
 
-	public AssignmentResult getAssignmentResult(int assignmentResultid) {
-		AssignmentResult assignmentResult = assignmentResultInterface.findById(assignmentResultid).get();
-		return assignmentResult;
-	}
-
-	public AssignmentResult updateAssignmentResult(AssignmentResult assignmentResult) {
-		// TODO Auto-generated method stub
+	public AssignmentResult getAssignmentResult(int assignmentResultid, int assignmentId, int studyGuideId,
+			int themeId) {
+		if (assignmentResultInterface.findById(assignmentResultid).isPresent()) {
+			AssignmentResult assignmentResult = assignmentResultInterface.findById(assignmentResultid).get();
+			if (assignmentResult.getAssignmentReference().getAssignmentId() == assignmentId)
+				return assignmentResult;
+		}
+		else
+			return null;
 		return null;
+	}
+
+	public AssignmentResult updateAssignmentResult(int assignmentResultid) {
+		AssignmentResult assignmentResult = assignmentResultInterface.findById(assignmentResultid).get();
+		assignmentResultInterface.save(assignmentResult);
+		return assignmentResult;
 	}
 
 }

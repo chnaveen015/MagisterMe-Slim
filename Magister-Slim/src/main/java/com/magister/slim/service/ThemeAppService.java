@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Theme;
 import com.magister.slim.references.ThemeReference;
+import com.magister.slim.references.UnitReference;
 import com.magister.slim.repository.StudyGuideInterface;
 import com.magister.slim.repository.ThemeInterface;
 
@@ -75,5 +76,18 @@ public class ThemeAppService {
 				return null;
 		} else
 			return null;
+	}
+
+	public boolean deleteUnitReference(int unitId, int themeId) {
+		Theme theme = themeInterface.findById(themeId).get();
+		List<UnitReference> unitReferences = theme.getUnits().stream().map(themeReference -> {
+			if (themeReference.getUnitId() == unitId) {
+				themeReference.setActive(false);
+			}
+			return themeReference;
+		}).collect(Collectors.toList());
+		theme.setUnits(unitReferences);
+		themeInterface.save(theme);
+		return true;
 	}
 }
