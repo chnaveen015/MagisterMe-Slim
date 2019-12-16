@@ -1,8 +1,6 @@
 package com.magister.slim.restcontroller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +19,12 @@ public class LoginController {
 	LoginAppService loginAppService;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public User insert(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
+	public User insert(@RequestBody User user, HttpServletRequest request) {
 		user.setActive(true);
-	//	User status = loginAppService.loginValidation(user);
-		HttpSession session = request.getSession();
-		session.setAttribute("user", user);
-	//	System.out.println(status);
-		return null;
+		User status = loginAppService.loginValidation(user);
+		request.getServletContext().setAttribute("user", user);
+		System.out.println(request.getServletContext().getAttribute("user"));
+		System.out.println(status);
+		return status;
 	}
 }

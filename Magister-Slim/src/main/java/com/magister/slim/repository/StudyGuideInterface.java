@@ -12,4 +12,7 @@ public interface StudyGuideInterface extends MongoRepository<StudyGuide,Integer>
 
 	@Query("{'studyGuideName':?0}")
 	List<StudyGuide> getStudyGuides(String studyGuideName);
+	
+	
+	
 }

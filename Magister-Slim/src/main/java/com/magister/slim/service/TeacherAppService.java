@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.magister.slim.entity.Group;
-import com.magister.slim.entity.OfferingLevel;
 import com.magister.slim.entity.Teacher;
-import com.magister.slim.entity.User;
-import com.magister.slim.entity.User.role;
 import com.magister.slim.references.GroupReference;
 import com.magister.slim.repository.TeacherInterface;
 

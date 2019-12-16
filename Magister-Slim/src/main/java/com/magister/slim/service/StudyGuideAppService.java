@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.magister.slim.entity.Course;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Theme;
 import com.magister.slim.entity.Unit;
+import com.magister.slim.entity.User;
 import com.magister.slim.references.StudyGuideReference;
 import com.magister.slim.references.TeacherReference;
 import com.magister.slim.references.ThemeReference;
 import com.magister.slim.references.UnitReference;
+import com.magister.slim.repository.CourseInterface;
 import com.magister.slim.repository.StudyGuideInterface;
 import com.magister.slim.repository.ThemeInterface;
 import com.magister.slim.repository.UnitInterface;
@@ -26,6 +27,8 @@ public class StudyGuideAppService {
 	ThemeInterface themeInterface;
 	@Autowired
 	UnitInterface unitInterface;
+	@Autowired
+	CourseInterface courseInterface;
 	@Autowired
 	CourseAppService courseAppService;
 	@Autowired
@@ -41,6 +44,18 @@ public class StudyGuideAppService {
 
 	public List<StudyGuide> getStudyGuide(String studyGuideName) {
 		List<StudyGuide> studyGuide = studyGuideInterface.getStudyGuides(studyGuideName);
+		return studyGuide;
+	}
+	
+	public List<StudyGuide> getStudyGuide(User user) {
+		List<StudyGuide> studyGuide = studyGuideInterface.findAll();
+		System.out.println(studyGuide.size());
+		for(int i=0;i<studyGuide.size();i++)
+		{
+			if(user.getUserid()!=studyGuide.get(i).getTeacherReference().getTeacherid())
+				studyGuide.remove(i);
+		}
+		System.out.println(studyGuide);
 		return studyGuide;
 	}
 
@@ -112,14 +127,16 @@ public class StudyGuideAppService {
 		return sg;
 	}
 
-	public StudyGuide addStudyGuide(StudyGuide studyGuide) {
-		Course course = new Course();
-		studyGuide.setTeacherReference(teacherDetails(4, "Tom"));
+	public StudyGuide addStudyGuide(StudyGuide studyGuide,User user) {
+//		Course course = new Course();
+//		String courseName=studyGuide.getCourseReference();
+//		courseInterface.getCourseByName(studyGuide.);
+		studyGuide.setTeacherReference(teacherDetails(user.getUserid(), user.getUsername()));
 		studyGuideInterface.save(studyGuide);
-		course.setCourseId(studyGuide.getCourseReference().getCourseId());
-		course.setStudyGuideReferences(
-				studyGuideDetails(studyGuide.getStudyGuideIdId(), studyGuide.getStudyGuideName()));
-		courseAppService.updateCourse(course);
+//		course.setCourseId(studyGuide.getCourseReference().getCourseId());
+		//course.setStudyGuideReferences(
+		//		studyGuideDetails(studyGuide.getStudyGuideIdId(), studyGuide.getStudyGuideName()));
+	//	courseAppService.updateCourse(course);
 		return studyGuide;
 	}
 

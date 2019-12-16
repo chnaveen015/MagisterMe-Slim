@@ -3,25 +3,18 @@ package com.magister.slim.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.magister.slim.entity.Course;
 import com.magister.slim.entity.Group;
-import com.magister.slim.entity.Offering;
 import com.magister.slim.entity.OfferingLevel;
-import com.magister.slim.entity.Student;
 import com.magister.slim.entity.Teacher;
 import com.magister.slim.references.CourseReference;
 import com.magister.slim.references.GroupReference;
-import com.magister.slim.references.OfferingLevelReference;
 import com.magister.slim.references.StudentReference;
 import com.magister.slim.references.StudyGuideReference;
-import com.magister.slim.references.TeacherReference;
 import com.magister.slim.repository.CourseInterface;
 import com.magister.slim.repository.GroupInterface;
-import com.magister.slim.repository.OfferingInterface;
 import com.magister.slim.repository.OfferingLevelInterface;
 import com.magister.slim.repository.TeacherInterface;
 
@@ -81,7 +74,7 @@ public class GroupAppService {
 			if (group.getOfferingLevelReference().getOfferingLevelId() == offeringLevelId) {
 				group.setActive(false);
 				groupInterface.save(group);
-				boolean status = offeringLevelAppService.deleteGroupReference(offeringLevelId, groupId);
+				offeringLevelAppService.deleteGroupReference(offeringLevelId, groupId);
 			}
 			return group;
 		}
@@ -94,7 +87,7 @@ public class GroupAppService {
 			Group group = groupInterface.findById(groupDetails.getGroupId()).get();
 			group.setGroupName(groupDetails.getGroupName());
 			groupInterface.save(group);
-			boolean status = offeringLevelAppService.updateGroupReferenceDetails(groupDetails);
+			offeringLevelAppService.updateGroupReferenceDetails(groupDetails);
 			return groupDetails;
 		}
 		return null;
@@ -170,9 +163,9 @@ public class GroupAppService {
 			return null;
 	}
 
-	public Group getGroupByName(int offeringLevelId, String groupName) {
-		Group groupDetails = groupInterface.getGroupByName(groupName);
-		if (groupDetails != null && groupDetails.getOfferingLevelReference().getOfferingLevelId() == offeringLevelId)
+	public List<Group> getGroupByName(int offeringLevelId, String groupName) {
+		List<Group> groupDetails = groupInterface.getGroupByName(groupName);
+		if (groupDetails != null)
 			return groupDetails;
 		else
 			return null;
