@@ -5,16 +5,16 @@ import org.springframework.data.annotation.Id;
 public class OfferingReference {
 
 	@Id
-	private int offeringId;
+	private String offeringId;
 	private String offeringName;
 	private boolean isActive;
 	
 
-	public int getOfferingId() {
+	public String getOfferingId() {
 		return offeringId;
 	}
 
-	public void setOfferingId(int offeringId) {
+	public void setOfferingId(String offeringId) {
 		this.offeringId = offeringId;
 	}
 
@@ -34,7 +34,7 @@ public class OfferingReference {
 		this.isActive = isActive;
 	}
 
-	public OfferingReference(int offeringId, String offeringName, boolean isActive) {
+	public OfferingReference(String offeringId, String offeringName, boolean isActive) {
 		super();
 		this.offeringId = offeringId;
 		this.offeringName = offeringName;

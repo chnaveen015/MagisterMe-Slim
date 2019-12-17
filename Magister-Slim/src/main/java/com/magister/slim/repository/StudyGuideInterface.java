@@ -8,8 +8,11 @@ import org.springframework.data.mongodb.repository.Query;
 import com.magister.slim.entity.StudyGuide;
 
 
-public interface StudyGuideInterface extends MongoRepository<StudyGuide,Integer>{
+public interface StudyGuideInterface extends MongoRepository<StudyGuide,String>{
 
 	@Query("{'studyGuideName':?0}")
 	List<StudyGuide> getStudyGuides(String studyGuideName);
+	
+	
+	
 }

@@ -10,15 +10,15 @@ import com.magister.slim.references.OfferingLevelReference;
 @Document
 public class Offering {
 	@Id
-	private int offeringid;
+	private String offeringId;
 	private String offeringName;
 	private List<OfferingLevelReference> offeringLevelReferences;
 	private boolean isActive;
-	public int getOfferingid() {
-		return offeringid;
+	public String getOfferingid() {
+		return offeringId;
 	}
-	public void setOfferingid(int offeringid) {
-		this.offeringid = offeringid;
+	public void setOfferingid(String offeringId) {
+		this.offeringId = offeringId;
 	}
 	public String getOfferingName() {
 		return offeringName;
@@ -36,13 +36,13 @@ public class Offering {
 	
 	@Override
 	public String toString() {
-		return "Offering [offeringid=" + offeringid + ", offeringName=" + offeringName + ", offeringLevelReferences="
+		return "Offering [offeringId=" + offeringId + ", offeringName=" + offeringName + ", offeringLevelReferences="
 				+ offeringLevelReferences + ", isActive=" + isActive + "]";
 	}
 	public Offering(int offeringid, String offeringName, List<OfferingLevelReference> offeringLevelReferences,
 			boolean isActive) {
 		super();
-		this.offeringid = offeringid;
+		this.offeringId = offeringId;
 		this.offeringName = offeringName;
 		this.offeringLevelReferences = offeringLevelReferences;
 		this.isActive = isActive;

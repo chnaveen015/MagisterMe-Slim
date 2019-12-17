@@ -2,14 +2,14 @@ package com.magister.slim.references;
 
 public class ThemeReference {
 
-	private int themeId;
+	private String themeId;
 	private String themeName;
-
-	public int getThemeId() {
+	private boolean isActive;
+	public String getThemeId() {
 		return themeId;
 	}
 
-	public void setThemeId(int themeId) {
+	public void setThemeId(String themeId) {
 		this.themeId = themeId;
 	}
 
@@ -21,4 +21,11 @@ public class ThemeReference {
 		this.themeName = themeName;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 }

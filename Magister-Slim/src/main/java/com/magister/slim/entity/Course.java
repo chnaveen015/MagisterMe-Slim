@@ -12,17 +12,17 @@ import com.magister.slim.references.StudyGuideReference;
 public class Course {
 
 	@Id
-	private int courseId;
+	private String courseId;
 	private String courseName;
 	private List<StudyGuideReference> studyGuideReferences;
 	private List<GroupReference> groupReferences;
 	private boolean isActive;
 
-	public int getCourseId() {
+	public String getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 
@@ -64,7 +64,7 @@ public class Course {
 				+ studyGuideReferences + ", groupReferencs=" + groupReferences + ", isActive=" + isActive + "]";
 	}
 
-	public Course(int courseId, String courseName, List<StudyGuideReference> studyGuideReferences,
+	public Course(String courseId, String courseName, List<StudyGuideReference> studyGuideReferences,
 			List<GroupReference> groupReferencs, boolean isActive) {
 		super();
 		this.courseId = courseId;

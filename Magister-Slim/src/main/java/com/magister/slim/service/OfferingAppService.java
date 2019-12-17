@@ -23,7 +23,7 @@ public class OfferingAppService {
 		return offeringInterface.save(offering);
 	}
 
-	public Offering deleteOffering(int offeringId) {
+	public Offering deleteOffering(String offeringId) {
 		Offering offering = offeringInterface.findById(offeringId).get();
 		offering.setActive(false);
 		return offeringInterface.save(offering);
@@ -41,7 +41,7 @@ public class OfferingAppService {
 		return offeringInterface.getOfferingsByName(offeringName);
 	}
 
-	public Offering getOfferingById(int offeringId) {
+	public Offering getOfferingById(String offeringId) {
 		if(offeringInterface.findById(offeringId).isPresent())
 			return offeringInterface.findById(offeringId).get();
 		else return null;
@@ -65,11 +65,11 @@ public class OfferingAppService {
 			return false;
 	}
 
-	public boolean deleteOfferingLevelReference(int offeringId, int offeringLevelId) {
+	public boolean deleteOfferingLevelReference(String offeringId, String offeringLevelId) {
 
 		Offering offering = offeringInterface.findById(offeringId).get();
 		List<OfferingLevelReference> offeringLevelReferences = offering.getOfferingLevelReferences().stream().map(offeringReference -> {
-			if (offeringReference.getOfferingLevelId() == offeringLevelId) {
+			if (offeringReference.getOfferingLevelId().equals(offeringLevelId)) {
 				offeringReference.setActive(false);	
 			}
 			return offeringReference;
@@ -83,7 +83,7 @@ public class OfferingAppService {
 	public boolean updateOfferingLevelReferenceDetails(OfferingLevel offeringLevel) {
 		Offering offering = offeringInterface.findById(offeringLevel.getOfferingReference().getOfferingId()).get();
 		List<OfferingLevelReference> offeringLevelReferences = offering.getOfferingLevelReferences().stream().map(offeringReference -> {
-			if (offeringReference.getOfferingLevelId() ==offeringLevel.getOfferingLevelId()) {
+			if (offeringReference.getOfferingLevelId().equals(offeringLevel.getOfferingLevelId())) {
 				offeringReference.setOfferingLevelName(offeringLevel.getOfferingLevelName());	
 			}
 			return offeringReference;

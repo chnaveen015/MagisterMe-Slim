@@ -25,7 +25,7 @@ public class UserAppService {
 		return user;
 	}
 
-	public User getUser(int userid) {
+	public User getUser(String userid) {
 		User user = userInterface.findById(userid).get();
 		return user;
 	}

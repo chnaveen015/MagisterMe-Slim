@@ -12,17 +12,62 @@ import com.magister.slim.references.GroupReference;
 public class Student {
 
 	@Id
-	private int id;
-	private int userReference;
+	private String id;
+	private User userReference;
 	private List<GroupReference> groupReference;
 	private String name, gender;
 	private List<CourseReference> courseReference;
 	private long phoneno;
 	private boolean active;
-
-	
-	
-	public Student(int id, int userReference, List<GroupReference> groupReference, String name, String gender,
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public User getUserReference() {
+		return userReference;
+	}
+	public void setUserReference(User userReference) {
+		this.userReference = userReference;
+	}
+	public List<GroupReference> getGroupReference() {
+		return groupReference;
+	}
+	public void setGroupReference(List<GroupReference> groupReference) {
+		this.groupReference = groupReference;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public List<CourseReference> getCourseReference() {
+		return courseReference;
+	}
+	public void setCourseReference(List<CourseReference> courseReference) {
+		this.courseReference = courseReference;
+	}
+	public long getPhoneno() {
+		return phoneno;
+	}
+	public void setPhoneno(long phoneno) {
+		this.phoneno = phoneno;
+	}
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	public Student(String id, User userReference, List<GroupReference> groupReference, String name, String gender,
 			List<CourseReference> courseReference, long phoneno, boolean active) {
 		super();
 		this.id = id;
@@ -34,83 +79,6 @@ public class Student {
 		this.phoneno = phoneno;
 		this.active = active;
 	}
-
-	public int getUserReference() {
-		return userReference;
-	}
-
-	public void setUserReference(int userReference) {
-		this.userReference = userReference;
-	}
-
-	public void setGroup(List<GroupReference> groupReference) {
-		this.groupReference = groupReference;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public long getPhoneno() {
-		return phoneno;
-	}
-
-	public void setPhoneno(long phoneno) {
-		this.phoneno = phoneno;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	public int getid() {
-		return id;
-	}
-	
-	public List<CourseReference> getCourseReference() {
-		return courseReference;
-	}
-
-	public void setCourseReference(List<CourseReference> courseReference) {
-		this.courseReference = courseReference;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	
-
-	public List<GroupReference> getGroupReference() {
-		return groupReference;
-	}
-
-	public void setGroupReference(List<GroupReference> groupReference) {
-		this.groupReference = groupReference;
-	}
-
-	
-
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", userReference=" + userReference + ", groupReference=" + groupReference
@@ -122,5 +90,6 @@ public class Student {
 	{
 		
 	}
-
+	
+	
 }

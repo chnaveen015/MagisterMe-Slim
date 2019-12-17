@@ -2,14 +2,14 @@ package com.magister.slim.references;
 
 public class UnitReference {
 
-	private int unitId;
+	private String unitId;
 	private String unitName;
-
-	public int getUnitId() {
+	private boolean isActive;
+	public String getUnitId() {
 		return unitId;
 	}
 
-	public void setUnitId(int unitId) {
+	public void setUnitId(String unitId) {
 		this.unitId = unitId;
 	}
 
@@ -19,6 +19,14 @@ public class UnitReference {
 
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 }

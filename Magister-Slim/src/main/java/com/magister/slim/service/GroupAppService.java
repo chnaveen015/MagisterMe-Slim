@@ -3,25 +3,18 @@ package com.magister.slim.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.magister.slim.entity.Course;
 import com.magister.slim.entity.Group;
-import com.magister.slim.entity.Offering;
 import com.magister.slim.entity.OfferingLevel;
-import com.magister.slim.entity.Student;
 import com.magister.slim.entity.Teacher;
 import com.magister.slim.references.CourseReference;
 import com.magister.slim.references.GroupReference;
-import com.magister.slim.references.OfferingLevelReference;
 import com.magister.slim.references.StudentReference;
 import com.magister.slim.references.StudyGuideReference;
-import com.magister.slim.references.TeacherReference;
 import com.magister.slim.repository.CourseInterface;
 import com.magister.slim.repository.GroupInterface;
-import com.magister.slim.repository.OfferingInterface;
 import com.magister.slim.repository.OfferingLevelInterface;
 import com.magister.slim.repository.TeacherInterface;
 
@@ -45,14 +38,14 @@ public class GroupAppService {
 	@Autowired
 	TeacherInterface teacherInterface;
 
-	public StudyGuideReference studyGuideDetails(int id, String studyGuideName) {
+	public StudyGuideReference studyGuideDetails(String id, String studyGuideName) {
 		StudyGuideReference studyGuideReference = new StudyGuideReference();
 		studyGuideReference.setStudyGuideId(id);
 		studyGuideReference.setStudyGuideName(studyGuideName);
 		return studyGuideReference;
 	}
 
-	public List<StudentReference> studentDetails(int id, String studentName) {
+	public List<StudentReference> studentDetails(String id, String studentName) {
 		StudentReference student = new StudentReference();
 		List<StudentReference> studentReference = new ArrayList<StudentReference>();
 		student.setId(id);
@@ -68,7 +61,6 @@ public class GroupAppService {
 
 	public Group addGroupDetails(Group groupDetails) {
 		if (groupInterface.save(groupDetails) != null) {
-
 			offeringLevelAppService.updateGroupReferences(groupDetails);
 			teacherAppService.updateGroupReferences(groupDetails);
 			return groupDetails;
@@ -76,35 +68,35 @@ public class GroupAppService {
 			return null;
 	}
 
-	public Group deleteGroup(int offeringId, int offeringLevelId, int groupId) {
+	public Group deleteGroup(String offeringId, String offeringLevelId, String groupId) {
 		if (groupInterface.findById(groupId).isPresent()) {
 			Group group = groupInterface.findById(groupId).get();
-			if (group.getOfferingLevelReference().getOfferingLevelId() == offeringLevelId) {
+			if (group.getOfferingLevelReference().getOfferingLevelId().equals(offeringLevelId)) {
 				group.setActive(false);
 				groupInterface.save(group);
-				boolean status = offeringLevelAppService.deleteGroupReference(offeringLevelId, groupId);
+				offeringLevelAppService.deleteGroupReference(offeringLevelId, groupId);
 			}
 			return group;
 		}
 		return null;
 	}
 
-	public Group updateGroupDetails(int offeringId, Group groupDetails) {
+	public Group updateGroupDetails(String offeringId, Group groupDetails) {
 
 		if (groupInterface.findById(groupDetails.getGroupId()).isPresent()) {
 			Group group = groupInterface.findById(groupDetails.getGroupId()).get();
 			group.setGroupName(groupDetails.getGroupName());
 			groupInterface.save(group);
-			boolean status = offeringLevelAppService.updateGroupReferenceDetails(groupDetails);
+			offeringLevelAppService.updateGroupReferenceDetails(groupDetails);
 			return groupDetails;
 		}
 		return null;
 	}
 
-	public GroupReference getGroupReference(int groupId, int offeringLevelId) {
+	public GroupReference getGroupReference(String groupId, String offeringLevelId) {
 		if (groupInterface.findById(groupId).isPresent()) {
 			Group groupDetails = groupInterface.findById(groupId).get();
-			if (groupDetails.getOfferingLevelReference().getOfferingLevelId() == offeringLevelId
+			if (groupDetails.getOfferingLevelReference().getOfferingLevelId().equals(offeringLevelId)
 					&& groupDetails.isActive() == true)
 				return new GroupReference(groupDetails.getGroupId(), groupDetails.getGroupName(), true);
 			else
@@ -130,10 +122,10 @@ public class GroupAppService {
 		return false;
 	}
 
-	public boolean deleteCourseReference(int groupId, int courseId) {
+	public boolean deleteCourseReference(String groupId, String courseId) {
 		Group groupDetails = groupInterface.findById(groupId).get();
 		List<CourseReference> courseReferences = (groupDetails.getCoursesreference()).stream().map(courseReference -> {
-			if (courseReference.getCourseId() == courseId) {
+			if (courseReference.getCourseId().equals( courseId)) {
 				courseReference.setActive(false);
 			}
 			return courseReference;
@@ -145,10 +137,10 @@ public class GroupAppService {
 			return false;
 	}
 
-	public boolean updateCourseReferenceDetails(int groupId, Course course) {
+	public boolean updateCourseReferenceDetails(String groupId, Course course) {
 		Group groupDetails = groupInterface.findById(groupId).get();
 		List<CourseReference> courseReferences = (groupDetails.getCoursesreference()).stream().map(courseReference -> {
-			if (courseReference.getCourseId() == course.getCourseId()) {
+			if (courseReference.getCourseId().equals(course.getCourseId())) {
 				courseReference.setCourseName(course.getCourseName());
 			}
 			return courseReference;
@@ -160,10 +152,10 @@ public class GroupAppService {
 			return false;
 	}
 
-	public Group getGroupDetailsById(int offeringLevelId, int groupId) {
+	public Group getGroupDetailsById(String offeringLevelId, String groupId) {
 		if ((groupInterface.findById(groupId).isPresent())) {
 			Group groupDetails = groupInterface.findById(groupId).get();
-			if (groupDetails.getOfferingLevelReference().getOfferingLevelId() == offeringLevelId)
+			if (groupDetails.getOfferingLevelReference().getOfferingLevelId().equals(offeringLevelId))
 				return groupDetails;
 			else
 				return null;
@@ -171,15 +163,15 @@ public class GroupAppService {
 			return null;
 	}
 
-	public Group getGroupByName(int offeringLevelId, String groupName) {
-		Group groupDetails = groupInterface.getGroupByName(groupName);
-		if (groupDetails != null && groupDetails.getOfferingLevelReference().getOfferingLevelId() == offeringLevelId)
+	public List<Group> getGroupByName(int offeringLevelId, String groupName) {
+		List<Group> groupDetails = groupInterface.getGroupByName(groupName);
+		if (groupDetails != null)
 			return groupDetails;
 		else
 			return null;
 	}
 
-	public boolean deleteOfferingLevelreference(int offeringLevelId) {
+	public boolean deleteOfferingLevelreference(String offeringLevelId) {
 		OfferingLevel offeringLevel = offeringLevelInterface.findById(offeringLevelId).get();
 		List<GroupReference> groupReferences = (offeringLevel.getGroupReferences()).stream().map(groupReference -> {
 			groupReference.setActive(false);
@@ -213,7 +205,7 @@ public class GroupAppService {
 	private Course deleteGroupReferences(Course course, Group group) {
 		
 		List<GroupReference> groupReferences = course.getGroupReferences().stream().map(groupReference -> {
-			if (groupReference.getGroupId() == group.getGroupId()) {
+			if (groupReference.getGroupId().equals(group.getGroupId())) {
 				groupReference.setActive(false);	
 			}
 			return groupReference;

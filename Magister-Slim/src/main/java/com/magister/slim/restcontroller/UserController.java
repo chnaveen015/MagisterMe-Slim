@@ -31,12 +31,12 @@ public class UserController {
 		User status=userAppService.addUserDetails(user);
 	}
 	@DeleteMapping("{userId}")
-	public void DeleteUserDetails(@RequestParam("userId") int userId)
+	public void DeleteUserDetails(@RequestParam("userId") String userId)
 	{
 		
 	}
 	@PutMapping("{userId}")
-	public void updateCourseDetails(@RequestParam("userId") int userId,@RequestBody() User user)
+	public void updateCourseDetails(@RequestParam("userId") String userId,@RequestBody() User user)
 	{
 	}
 	}

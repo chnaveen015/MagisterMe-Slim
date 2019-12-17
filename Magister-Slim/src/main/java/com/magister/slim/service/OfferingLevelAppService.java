@@ -36,12 +36,12 @@ public class OfferingLevelAppService {
 			return null;
 	}
 
-	public OfferingLevel getOfferingLevel(int offeringLevelid) {
+	public OfferingLevel getOfferingLevel(String offeringLevelid) {
 		OfferingLevel group = offeringLevelInterface.findById(offeringLevelid).get();
 		return group;
 	}
 
-	public OfferingLevel deleteOfferingLevel(int offeringId, int offeringLevelId) {
+	public OfferingLevel deleteOfferingLevel(String offeringId, String offeringLevelId) {
 		OfferingLevel offeringLevel = offeringLevelInterface.findById(offeringLevelId).get();
 		offeringLevel.setActive(false);
 		offeringLevelInterface.save(offeringLevel);
@@ -58,11 +58,11 @@ public class OfferingLevelAppService {
 		return offeringLevel;
 	}
 
-	public OfferingLevel getOfferingLevelById(int offeringId, int offeringLevelId) {
+	public OfferingLevel getOfferingLevelById(String offeringId, String offeringLevelId) {
 
 		if ((offeringLevelInterface.findById(offeringLevelId).isPresent())) {
 			OfferingLevel offeringLevel = offeringLevelInterface.findById(offeringLevelId).get();
-			if (offeringLevel.getOfferingReference().getOfferingId() == offeringId)
+			if (offeringLevel.getOfferingReference().getOfferingId().equals( offeringId))
 				return offeringLevel;
 			else
 				return null;
@@ -70,20 +70,20 @@ public class OfferingLevelAppService {
 			return null;
 	}
 
-	public OfferingLevel getOfferingLevelByName(int offeringId, String offeringLevelName) {
+	public OfferingLevel getOfferingLevelByName(String offeringId, String offeringLevelName) {
 		OfferingLevel offeringLevel = offeringLevelInterface.getOfferingLevelByName(offeringLevelName);
-		if (offeringLevel != null && offeringLevel.getOfferingReference().getOfferingId() == offeringId)
+		if (offeringLevel != null && offeringLevel.getOfferingReference().getOfferingId().equals( offeringId))
 			return offeringLevel;
 		else
 			return null;
 	}
 
-	public OfferingLevelReference getOfferingLevelReference(int offeringId, int offeringLevelId) {
+	public OfferingLevelReference getOfferingLevelReference(String offeringId, String offeringLevelId) {
 		
 		if(offeringLevelInterface.findById(offeringLevelId).isPresent())
 		{
 		OfferingLevel offeringLevel= offeringLevelInterface.findById(offeringLevelId).get();
-		if(offeringLevel.getOfferingReference().getOfferingId()==offeringId && offeringLevel.isActive()==true)
+		if(offeringLevel.getOfferingReference().getOfferingId().equals(offeringId) && offeringLevel.isActive()==true)
 			return new OfferingLevelReference(offeringLevel.getOfferingLevelId(),offeringLevel.getOfferingLevelName(),true);
 		else 
 			return null;
@@ -108,10 +108,10 @@ public class OfferingLevelAppService {
 			return false;
 	}
 
-	public boolean deleteGroupReference(int offeringLevelId, int groupId) {
+	public boolean deleteGroupReference(String offeringLevelId, String groupId) {
 		OfferingLevel offeringLevel = offeringLevelInterface.findById(offeringLevelId).get();
 		List<GroupReference> groupReferences = offeringLevel.getGroupReferences().stream().map(groupReference -> {
-			if (groupReference.getGroupId() == groupId) {
+			if (groupReference.getGroupId().equals( groupId)) {
 				groupReference.setActive(false);
 			}
 			return groupReference;
@@ -126,7 +126,7 @@ public class OfferingLevelAppService {
 		
 		OfferingLevel offeringLevel = offeringLevelInterface.findById(groupDetails.getOfferingLevelReference().getOfferingLevelId()).get();
 		List<GroupReference> groupReferences = offeringLevel.getGroupReferences().stream().map(groupReference -> {
-			if (groupReference.getGroupId() ==groupDetails.getGroupId()) {
+			if (groupReference.getGroupId().equals(groupDetails.getGroupId())) {
 				groupReference.setGroupName(groupDetails.getGroupName());	
 			}
 			return groupReference;

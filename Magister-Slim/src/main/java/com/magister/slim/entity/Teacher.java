@@ -11,7 +11,7 @@ import com.magister.slim.references.GroupReference;
 public class Teacher {
 	
 	@Id
-	private int teacherId;
+	private String teacherId;
 	private User userReference;
 	private String name;
 	private String address;
@@ -26,10 +26,10 @@ public class Teacher {
 	private int age;
 	private String gender;
 	private boolean isActive;
-	public int getTeacherId() {
+	public String getTeacherId() {
 		return teacherId;
 	}
-	public void setTeacherId(int teacherid) {
+	public void setTeacherId(String teacherid) {
 		this.teacherId = teacherid;
 	}
 	
@@ -71,7 +71,7 @@ public class Teacher {
 	}
 	
 	
-	public Teacher(int teacherid, User userReference, String name, String address, long phoneno,
+	public Teacher(String teacherid, User userReference, String name, String address, long phoneno,
 			List<GroupReference> groupReference, int age, String gender, boolean isActive) {
 		super();
 		this.teacherId = teacherid;
