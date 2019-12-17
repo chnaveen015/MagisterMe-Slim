@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 public class OfferingLevelReference {
 
 	@Id
-	private int offeringLevelId;
+	private String offeringLevelId;
 	private String offeringLevelName;
 	private boolean isActive;
 
@@ -31,18 +31,18 @@ public class OfferingLevelReference {
 				+ ", isActive=" + isActive + "]";
 	}
 
-	public OfferingLevelReference(int offeringLevelId, String offeringLevelName, boolean isActive) {
+	public OfferingLevelReference(String offeringLevelId, String offeringLevelName, boolean isActive) {
 		super();
 		this.offeringLevelId = offeringLevelId;
 		this.offeringLevelName = offeringLevelName;
 		this.isActive = isActive;
 	}
 
-	public int getOfferingLevelId() {
+	public String getOfferingLevelId() {
 		return offeringLevelId;
 	}
 
-	public void setOfferingLevelId(int offeringLevelId) {
+	public void setOfferingLevelId(String offeringLevelId) {
 		this.offeringLevelId = offeringLevelId;
 	}
 

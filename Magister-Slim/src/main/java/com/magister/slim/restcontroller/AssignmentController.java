@@ -10,54 +10,87 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Assignment;
+import com.magister.slim.entity.StudyGuide;
+import com.magister.slim.entity.Theme;
+import com.magister.slim.entity.Unit;
 import com.magister.slim.references.StudyGuideReference;
 import com.magister.slim.references.ThemeReference;
 import com.magister.slim.references.UnitReference;
+import com.magister.slim.repository.StudyGuideInterface;
+import com.magister.slim.repository.UnitInterface;
 import com.magister.slim.service.AssignmentAppService;
 
 @RestController
-@RequestMapping("studyguide/{studyGuideId}/theme/{themeId}/unit/{unitId}/assignment")
+@RequestMapping("studyGuide/{studyGuideId}/theme/{themeId}/unit/{unitId}/assignment")
 @CrossOrigin(origins = "http://localhost:4200")
 
 public class AssignmentController {
 
 	@Autowired
 	AssignmentAppService assignmentAppService;
+	@Autowired
+	StudyGuideInterface studyGuideInterface;
+	@Autowired
+	UnitInterface unitInterface;
 
 	Assignment assignment = new Assignment();
+	StudyGuide studyGuide = new StudyGuide();
+	Theme theme = new Theme();
+	Unit unit = new Unit();
 	StudyGuideReference studyGuideReference = new StudyGuideReference();
-	ThemeReference theme = new ThemeReference();
-	UnitReference unit = new UnitReference();
+	ThemeReference themeReference = new ThemeReference();
+	UnitReference unitReference = new UnitReference();
 
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public Assignment add(@RequestBody Assignment assignment) {
-		Assignment status = assignmentAppService.addAssignment(assignment);
+	@RequestMapping(method = RequestMethod.POST)
+	public Assignment createAssignment(@RequestBody Assignment assignment, @PathVariable("unitId") String unitId,
+			@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId) {
+		assignment.setActive(true);
+		studyGuide = studyGuideInterface.findById(studyGuideId).get();
+		StudyGuideReference studyGuideReference = new StudyGuideReference();
+		studyGuideReference.setActive(true);
+		studyGuideReference.setStudyGuideId(studyGuideId);
+		studyGuideReference.setStudyGuideName(studyGuide.getStudyGuideName());
+		unit = unitInterface.findById(unitId).get();
+		UnitReference unitReference = new UnitReference();
+		unitReference.setActive(true);
+		unitReference.setUnitId(unitId);
+		unitReference.setUnitName(unit.getUnitName());
+		assignment.setStudyGuideReference(studyGuideReference);
+		assignment.setUnitReference(unitReference);
+		Assignment status = assignmentAppService.addAssignment(assignment,unit);
 		return status;
 	}
 
 	@RequestMapping(value = "/{assignmentId}", method = RequestMethod.DELETE)
-	public int delete(@PathVariable("assignmentId") int assignmentId) {
-		int status = assignmentAppService.deleteAssignment(assignmentId);
+	public String deleteAssignmentDetails(@PathVariable("assignmentId") String assignmentId,
+			@PathVariable("unitId") String unitId, @PathVariable("studyGuideId") String studyGuideId) {
+		String status = assignmentAppService.deleteAssignment(assignmentId, unitId);
 		return status;
 	}
 
 	@RequestMapping(value = "/{assignmentId}", method = RequestMethod.PUT)
-	public Assignment update(@PathVariable("assignmentId") int assignmentId, @RequestBody Assignment assignment) {
+	public Assignment updateAssignmentDetails(@PathVariable("assignmentId") String assignmentId,
+			@RequestBody Assignment assignment, @PathVariable("unitId") String unitId,
+			@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId) {
 		assignment.setAssignmentId(assignmentId);
-		Assignment status = assignmentAppService.addAssignment(assignment);
+		Assignment status = assignmentAppService.updateAssignment(assignment);
 		return status;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public Assignment get(@RequestParam int assignmentId) {
-		Assignment assignment = assignmentAppService.getAssignment(assignmentId);
+	@RequestMapping(value = "/{assignmentId}", method = RequestMethod.GET)
+	public Assignment getAssignmentDetail(@PathVariable("studyGuideId") String studyGuideId,
+			@PathVariable("themeId") String themeId, @PathVariable("unitId") String unitId,
+			@PathVariable("assignmentId") String assignmentId) {
+		Assignment assignment = assignmentAppService.getAssignment(assignmentId, studyGuideId, themeId);
 		return assignment;
 
 	}
 
-	@RequestMapping(value = "/{assignmentName}", method = RequestMethod.GET)
-	public List<Assignment> get(@PathVariable("assignmentName") String assignmentName) {
-		List<Assignment> assignments = assignmentAppService.getAssignments(assignmentName);
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Assignment> getAssignmentDetails(@PathVariable("studyGuideId") String studyGuideId,
+			@PathVariable("themeId") String themeId, @PathVariable("unitId") String unitId,
+			@RequestParam String assignmentName) {
+		List<Assignment> assignments = assignmentAppService.getAssignments(assignmentName, studyGuideId, unitId);
 		return assignments;
 	}
 }

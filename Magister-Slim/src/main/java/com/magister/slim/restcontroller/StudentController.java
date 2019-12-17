@@ -1,7 +1,5 @@
 package com.magister.slim.restcontroller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Student;
-import com.magister.slim.entity.Teacher;
 import com.magister.slim.service.StudentAppService;
 
 @RestController
@@ -23,18 +20,20 @@ public class StudentController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Student addStudent(@RequestBody Student studentDetails) {
-		Student status = studentAppService.addStudentDetails(studentDetails);
+		studentDetails.setActive(true);
+	//	studentDetails.setUserReference(studentDetails.getid());
+		studentAppService.addStudentDetails(studentDetails);
 		return null;
 	}
 
 	@RequestMapping(path="{studentId}",method = RequestMethod.DELETE)
-	public Student deleteStudentDetails(@RequestParam("studentId") int studenId) {
+	public Student deleteStudentDetails(@RequestParam("studentId") String studenId) {
 		//Student status = studentAppService.deleteStudent(student);
 		return null;
 	}
 
 	@RequestMapping(path="{studentId}",method = RequestMethod.PUT)
-	public Student updateStudentDetails(@RequestParam("studentId") int studentId,@RequestBody Student student) {
+	public Student updateStudentDetails(@RequestParam("studentId") String studentId,@RequestBody Student student) {
 	//	Student status = studentAppService.addStudent(student);
 		return null;
 	}
@@ -46,7 +45,7 @@ public class StudentController {
 //	}
 
 	@RequestMapping(value = "/students", method = RequestMethod.GET)
-	public Student getStudentDetails(@RequestParam int studentid) {
+	public Student getStudentDetails(@RequestParam String studentid) {
 		Student student = studentAppService.getStudent(studentid);
 		return student;
 

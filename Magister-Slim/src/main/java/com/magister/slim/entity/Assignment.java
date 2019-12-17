@@ -1,11 +1,8 @@
 package com.magister.slim.entity;
-
-import java.sql.Date; 
+ 
 import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.magister.slim.references.AssignmentResultReference;
 import com.magister.slim.references.StudentReference;
 import com.magister.slim.references.StudyGuideReference;
@@ -15,20 +12,20 @@ import com.magister.slim.references.UnitReference;
 @Document
 public class Assignment {
 	@Id
-	private int assignmentId;
+	private String assignmentId;
 	private String assignmentName;
-	private Date validOnwards;
-	private Date validUpto;
+	private String validOnwards;
+	private String validUpto;
 	private List<StudentReference> students;
 	private List<AssignmentResultReference> assignmentResultReference;
 	private boolean isActive;
 	private UnitReference unitReference;
 	private StudyGuideReference studyGuideReference;
 	private TeacherReference createdBy;
-	public int getAssignmentId() {
+	public String getAssignmentId() {
 		return assignmentId;
 	}
-	public void setAssignmentId(int assignmentId) {
+	public void setAssignmentId(String assignmentId) {
 		this.assignmentId = assignmentId;
 	}
 	public String getAssignmentName() {
@@ -37,16 +34,16 @@ public class Assignment {
 	public void setAssignmentName(String assignmentName) {
 		this.assignmentName = assignmentName;
 	}
-	public Date getValidOnwards() {
+	public String getValidOnwards() {
 		return validOnwards;
 	}
-	public void setValidOnwards(Date validOnwards) {
+	public void setValidOnwards(String validOnwards) {
 		this.validOnwards = validOnwards;
 	}
-	public Date getValidUpto() {
+	public String getValidUpto() {
 		return validUpto;
 	}
-	public void setValidUpto(Date validUpto) {
+	public void setValidUpto(String validUpto) {
 		this.validUpto = validUpto;
 	}
 	public List<StudentReference> getStudents() {
@@ -85,7 +82,7 @@ public class Assignment {
 	public void setCreatedBy(TeacherReference createdBy) {
 		this.createdBy = createdBy;
 	}
-	public Assignment(int assignmentId, String assignmentName, Date validOnwards, Date validUpto,
+	public Assignment(String assignmentId, String assignmentName, String validOnwards, String validUpto,
 			List<StudentReference> students, List<AssignmentResultReference> assignmentResultReference,
 			boolean isActive, UnitReference unitReference, StudyGuideReference studyGuideReference,
 			TeacherReference createdBy) {

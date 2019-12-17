@@ -10,15 +10,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int userid;
+	private String userid;
 	private String username;
 	private String password;
+	private role role;
 	public enum role{student , teacher;}
 	private boolean active;
-	public int getUserid() {
+	public void setUserType(role input){
+        role= input;
+    }
+	public role getRole()
+	{
+		return role;
+	}
+	public String getUserid() {
 		return userid;
 	}
-	public void setUserid(int userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 	public String getUsername() {
@@ -39,7 +47,8 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public User(int userid, String username, String password, boolean active) {
+	
+	public User(String userid, String username, String password, boolean active) {
 		super();
 		this.userid = userid;
 		this.username = username;
@@ -55,5 +64,4 @@ public class User {
 	{
 		
 	}
-
 }

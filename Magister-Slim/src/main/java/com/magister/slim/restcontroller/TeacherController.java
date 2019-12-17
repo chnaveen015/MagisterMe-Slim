@@ -27,25 +27,26 @@ public class TeacherController {
 
 	@PostMapping()
 	public Teacher addTeacherDetails(@RequestBody Teacher teacherDetails) {
+		teacherDetails.setActive(true);
 		Teacher status = teacherAppService.addTeacher(teacherDetails);
 		return status;
 	}
 
 	@RequestMapping(value = "{teacherId}", method = RequestMethod.DELETE)
-	public Teacher removeTeacher(@PathVariable("teacherId") int teacherId) {
+	public Teacher removeTeacher(@PathVariable("teacherId") String teacherId) {
 		Teacher status=teacherAppService.removeTeacherDetails(teacherId);
 		return status;
 	}
 	
 	@RequestMapping(value = "{teacherId}", method = RequestMethod.PUT)
-	public Teacher updateTeacherDetails(@PathVariable("teacherId") int teacherId,@RequestBody Teacher teacher) {
+	public Teacher updateTeacherDetails(@PathVariable("teacherId") String teacherId,@RequestBody Teacher teacher) {
 		teacher.setTeacherId(teacherId);
 		Teacher status = teacherAppService.updateTeacher(teacher);
 		return null;
 	}
 
 	@RequestMapping(value = "{teacherId}", method = RequestMethod.GET)
-	public Teacher getGroupDetails(@PathVariable("teacherId") int teacherId) {
+	public Teacher getGroupDetails(@PathVariable("teacherId") String teacherId) {
 		Teacher teacherDetails=teacherAppService.getTeacherDetailsById(teacherId);
 			
 		return teacherDetails;

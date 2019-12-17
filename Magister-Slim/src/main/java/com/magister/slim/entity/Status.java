@@ -5,14 +5,14 @@ import org.springframework.data.annotation.Id;
 public class Status {
 	
 	@Id
-	private int id;
+	private String id;
 	enum statusState{
 		STARTED,HANDEDIN,GRADED,COMPLETED;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

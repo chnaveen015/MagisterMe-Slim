@@ -1,6 +1,6 @@
 package com.magister.slim.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -18,7 +18,7 @@ import com.magister.slim.references.UnitReference;
 public class StudyGuide {
 
 	@Id
-	private int studyGuideId;
+	private String studyGuideId;
 	private String studyGuideName;
 	private TeacherReference teacherReference;
 	private List<ThemeReference> themes;
@@ -38,7 +38,7 @@ public class StudyGuide {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public StudyGuide(int studyGuideId, String studyGuideName, TeacherReference teacherReference,
+	public StudyGuide(String studyGuideId, String studyGuideName, TeacherReference teacherReference,
 			List<ThemeReference> themes, List<UnitReference> units, List<StudentReference> students,
 			CourseReference courseReference, OfferingReference offeringReference,
 			OfferingLevelReference offeringLevelReference, Date validOnwards, Date validUpto, boolean isDeleted,
@@ -58,10 +58,10 @@ public class StudyGuide {
 		this.isDeleted = isDeleted;
 		this.active = active;
 	}
-	public int getStudyGuideIdId() {
+	public String getStudyGuideIdId() {
 		return studyGuideId;
 	}
-	public void setStudyGuideId(int studyGuideId) {
+	public void setStudyGuideId(String studyGuideId) {
 		this.studyGuideId= studyGuideId;
 	}
 	public String getStudyGuideName() {
@@ -130,7 +130,8 @@ public class StudyGuide {
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	public int getStudyGuideId() {
+	
+	public String getStudyGuideId() {
 		return studyGuideId;
 	}
 	

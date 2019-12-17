@@ -20,7 +20,7 @@ public class CourseAppService {
 	@Autowired
 	GroupAppService groupAppService;
 
-	public Course getCourse(int courseid) {
+	public Course getCourse(String courseid) {
 		Course course=courseInterface.findById(courseid).get();
 		return course;
 	}
@@ -62,7 +62,7 @@ public class CourseAppService {
 		}
 	return false;
 	}
-	public Course deleteCourse(int groupId, int courseId) {
+	public Course deleteCourse(String groupId, String courseId) {
 		if(courseInterface.findById(courseId).isPresent())
 		{
 		Course courseDetails=courseInterface.findById(courseId).get();
@@ -73,7 +73,7 @@ public class CourseAppService {
 		}
 		return null;
 	}
-	public Course updateCourseDetails(int groupId, Course course) {
+	public Course updateCourseDetails(String groupId, Course course) {
 		if (courseInterface.findById(course.getCourseId()).isPresent()) {
 			Course courseDetails = courseInterface.findById(course.getCourseId()).get();
 			courseDetails.setCourseName(course.getCourseName());
@@ -83,7 +83,7 @@ public class CourseAppService {
 		}
 		return null;
 	}
-	public Course getCourseDetailsById(int groupId, int courseId) {
+	public Course getCourseDetailsById(int groupId, String courseId) {
 		if ((courseInterface.findById(courseId).isPresent())) {
 			Course courseDetails = courseInterface.findById(courseId).get();
 				return courseDetails;
