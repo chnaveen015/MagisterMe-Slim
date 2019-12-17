@@ -14,7 +14,7 @@ import com.magister.slim.references.ThemeReference;
 public class Unit {
 
 	@Id
-	private int unitId;
+	private String unitId;
 	private String unitName;
 	private List<AssignmentReference> assignments;
 	private List<ResourceReference> resources;
@@ -22,11 +22,11 @@ public class Unit {
 	private StudyGuideReference studyGuideReference;
 	private boolean active;
 
-	public int getUnitId() {
+	public String getUnitId() {
 		return unitId;
 	}
 
-	public void setUnitId(int unitId) {
+	public void setUnitId(String unitId) {
 		this.unitId = unitId;
 	}
 
@@ -85,7 +85,7 @@ public class Unit {
 				+ ", active=" + active + "]";
 	}
 
-	public Unit(int unitId, String unitName, List<AssignmentReference> assignments, List<ResourceReference> resources,
+	public Unit(String unitId, String unitName, List<AssignmentReference> assignments, List<ResourceReference> resources,
 			ThemeReference themeReference, StudyGuideReference studyGuideReference, boolean active) {
 		super();
 		this.unitId = unitId;

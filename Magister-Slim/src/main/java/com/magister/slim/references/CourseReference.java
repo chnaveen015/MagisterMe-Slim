@@ -5,16 +5,16 @@ import org.springframework.data.annotation.Id;
 public class CourseReference {
 
 	@Id
-	private int courseId;
+	private String courseId;
 	private String courseName;
 	private boolean isActive;
 	
 
-	public int getCourseId() {
+	public String getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 
@@ -32,7 +32,7 @@ public class CourseReference {
 		return "CourseReference [courseId=" + courseId + ", courseName=" + courseName + ", isActive=" + isActive + "]";
 	}
 
-	public CourseReference(int courseId, String courseName, boolean isActive) {
+	public CourseReference(String courseId, String courseName, boolean isActive) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;

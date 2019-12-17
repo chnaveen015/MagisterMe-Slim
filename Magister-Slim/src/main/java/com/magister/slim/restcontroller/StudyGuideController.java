@@ -33,21 +33,21 @@ public class StudyGuideController {
 	}
 
 	@RequestMapping(value = "/{studyGuideId}", method = RequestMethod.DELETE)
-	public int deleteStudyGuideDetails(@PathVariable("studyGuideId") int studyGuideId, HttpServletRequest request,
+	public String deleteStudyGuideDetails(@PathVariable("studyGuideId") String studyGuideId, HttpServletRequest request,
 			HttpServletResponse response) {
-		int status = studyGuideAppService.deleteStudyGuide(studyGuideId);
+		String status = studyGuideAppService.deleteStudyGuide(studyGuideId);
 		return status;
 	}
 
 	@RequestMapping(value = "/{studyGuideId}", method = RequestMethod.PUT)
-	public StudyGuide updateStudyGuideDetails(@PathVariable("studyGuideId") int studyGuideId, @RequestBody StudyGuide studyGuide) {
+	public StudyGuide updateStudyGuideDetails(@PathVariable("studyGuideId") String studyGuideId, @RequestBody StudyGuide studyGuide) {
 		StudyGuide status = studyGuideAppService.updateStudyGuide(studyGuide,studyGuideId);
 		return status;
 	}
 
 	@RequestMapping(value = "/{studyGuideId}",method = RequestMethod.GET)
-	public StudyGuide getStudyGuideDetail(@PathVariable("studyGuideId") int studyGuideId) {
-		StudyGuide studyGuide = studyGuideAppService.getStudyGuide(studyGuideId);
+	public StudyGuide getStudyGuideDetail(@PathVariable("studyGuideId") String studyGuideId) {
+		StudyGuide studyGuide = studyGuideAppService.getStudyGuideById(studyGuideId);
 		return studyGuide;
 	}
 

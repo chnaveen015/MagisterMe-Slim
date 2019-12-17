@@ -32,11 +32,11 @@ public class TeacherAppService {
 		return teacherInterface.save(teacher);
 		
 	}
-	public Teacher getTeacher(int teacherid) {
+	public Teacher getTeacher(String teacherid) {
 		Teacher teacher=teacherInterface.findById(teacherid).get();
 		return teacher;
 	}
-	public Teacher removeTeacherDetails(int teacherId) {
+	public Teacher removeTeacherDetails(String teacherId) {
 		Teacher teacherDetails = teacherInterface.findById(teacherId).get();
 		teacherDetails.setActive(false);
 		teacherInterface.save(teacherDetails);
@@ -71,7 +71,7 @@ public class TeacherAppService {
 		return null;
 	}
 
-	public Teacher getTeacherDetailsById(int teacherId) {
+	public Teacher getTeacherDetailsById(String teacherId) {
 		if ((teacherInterface.findById(teacherId).isPresent())) {
 			Teacher teacherDetails = teacherInterface.findById(teacherId).get();
 	

@@ -27,7 +27,7 @@ public class CourseController {
 	GroupAppService groupAppService;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public Course addCourse(@PathVariable("offeringId") int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@PathVariable("groupId")int groupId,@RequestBody Course courseDetails) {
+	public Course addCourse(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId")String groupId,@RequestBody Course courseDetails) {
 		courseDetails.setActive(true);
 		GroupReference groupReference=groupAppService.getGroupReference(groupId,offeringLevelId);
 		if(groupReference!=null)
@@ -39,13 +39,13 @@ public class CourseController {
 	}
 
 	@RequestMapping(value = "/{courseId}", method = RequestMethod.DELETE)
-	public Course removeCourse(@PathVariable("offeringId")int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@PathVariable("groupId") int groupId,@PathVariable("courseId")int courseId) {
+	public Course removeCourse(@PathVariable("offeringId")String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId") String groupId,@PathVariable("courseId")String courseId) {
 		Course status=courseAppService.deleteCourse(groupId,courseId);
 		return null;
 	}
 	
 	@RequestMapping(value = "{courseId}", method = RequestMethod.PUT)
-	public Course updateCourseDetails(@PathVariable("offeringId") int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@PathVariable("groupId")int groupId,@PathVariable("courseId")int courseId,@RequestBody Course course) {
+	public Course updateCourseDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId")String groupId,@PathVariable("courseId")String courseId,@RequestBody Course course) {
 		course.setCourseId(courseId);
 		Course status=courseAppService.updateCourseDetails(groupId,course);
 		return null;

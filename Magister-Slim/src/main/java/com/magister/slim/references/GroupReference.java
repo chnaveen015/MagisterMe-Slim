@@ -2,14 +2,14 @@ package com.magister.slim.references;
 
 public class GroupReference {
 	
-	private int groupId;
+	private String groupId;
 	private String groupName;
 	private boolean isActive;
 	
-	public int getGroupId() {
+	public String getGroupId() {
 		return groupId;
 	}
-	public void setGroupId(int groupId) {
+	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
 	public String getGroupName() {
@@ -24,7 +24,7 @@ public class GroupReference {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public GroupReference(int groupId, String groupName, boolean isActive) {
+	public GroupReference(String groupId, String groupName, boolean isActive) {
 		super();
 		this.groupId = groupId;
 		this.groupName = groupName;

@@ -2,15 +2,15 @@ package com.magister.slim.references;
 
 public class AssignmentReference {
 
-	private int assignmentId;
+	private String assignmentId;
 	private String assignmentName;
 	private boolean isActive;
 
-	public int getAssignmentId() {
+	public String getAssignmentId() {
 		return assignmentId;
 	}
 
-	public void setAssignmentId(int assignmentId) {
+	public void setAssignmentId(String assignmentId) {
 		this.assignmentId = assignmentId;
 	}
 

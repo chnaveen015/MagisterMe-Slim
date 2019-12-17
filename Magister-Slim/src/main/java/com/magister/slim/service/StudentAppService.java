@@ -17,7 +17,7 @@ public class StudentAppService {
 	
 	public Student deleteStudent(Student student)
 	{
-		studentInterface.deleteById(student.getid());
+		studentInterface.deleteById(student.getId());
 		return student;
 	}
 	public List<Student> getStudents(String studentName)
@@ -25,7 +25,7 @@ public class StudentAppService {
 		List<Student> student1=studentInterface.findAll();
 		return student1;
 	}
-	public Student getStudent(int studentid) {
+	public Student getStudent(String studentid) {
 		Student student=studentInterface.findById(studentid).get();
 		return student;
 	}

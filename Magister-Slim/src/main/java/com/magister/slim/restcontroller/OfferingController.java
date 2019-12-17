@@ -28,19 +28,19 @@ public class OfferingController {
 	}
 
 	@RequestMapping(path="/{offeringId}",method = RequestMethod.DELETE)
-	public Offering deleteOfferingDetails(@PathVariable("offeringId") int offeringId) {
+	public Offering deleteOfferingDetails(@PathVariable("offeringId") String offeringId) {
 		 return offeringAppService.deleteOffering(offeringId);
 		
 	}
 	
 	@RequestMapping(path="{offeringId}",method = RequestMethod.PUT)
-	public Offering updateOfferingDetails(@PathVariable("offeringId") int offeringId,@RequestBody Offering offering) {
+	public Offering updateOfferingDetails(@PathVariable("offeringId") String offeringId,@RequestBody Offering offering) {
 		offering.setOfferingid(offeringId);
 		Offering status = offeringAppService.updateOfferingName(offering);
 		return status;
 	}
 	@RequestMapping(path="/{offeringId}",method = RequestMethod.GET)
-	public Offering getOfferingDetail(@PathVariable("offeringId") int offeringId) {
+	public Offering getOfferingDetail(@PathVariable("offeringId") String offeringId) {
 		Offering offering = offeringAppService.getOfferingById(offeringId);
 		return offering;
 

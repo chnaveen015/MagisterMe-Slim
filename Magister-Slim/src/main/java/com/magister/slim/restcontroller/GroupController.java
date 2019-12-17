@@ -26,7 +26,7 @@ public class GroupController {
 	OfferingLevelAppService offeringLevelAppService;
 
 	@PostMapping()
-	public Group createGroup(@PathVariable("offeringId")int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@RequestBody Group groupDetails) {
+	public Group createGroup(@PathVariable("offeringId")String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@RequestBody Group groupDetails) {
 		groupDetails.setActive(true);
 		
 		OfferingLevelReference offeringLevelReference=offeringLevelAppService.getOfferingLevelReference(offeringId,offeringLevelId);
@@ -40,7 +40,7 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "/{groupId}", method = RequestMethod.PUT)
-	public Group updateGroupDetails(@PathVariable("offeringId") int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@PathVariable("groupId")int groupId,@RequestBody Group groupDetails) {
+	public Group updateGroupDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId")String groupId,@RequestBody Group groupDetails) {
 		groupDetails.setGroupId(groupId);
 		groupDetails.setOfferingLevelReference(new OfferingLevelReference());
 		groupDetails.getOfferingLevelReference().setOfferingLevelId(offeringLevelId);
@@ -49,20 +49,20 @@ public class GroupController {
 	}
 
 	@RequestMapping(value = "{groupId}", method = RequestMethod.DELETE)
-	public Group deleteGroupDeatils(@PathVariable("offeringId") int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@PathVariable("groupId") int groupId) {
+	public Group deleteGroupDeatils(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId") String groupId) {
 		Group status=groupAppService.deleteGroup(offeringId,offeringLevelId,groupId);
 		return status;
 	}
 
 	@RequestMapping(value = "{groupId}", method = RequestMethod.GET)
-	public Group getGroupDetails(@PathVariable("offeringId") int offeringId,@PathVariable("offeringLevelId") int offeringLevelId,@PathVariable("groupId") int groupId) {
+	public Group getGroupDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId") String groupId) {
 		Group groupDetails=groupAppService.getGroupDetailsById(offeringLevelId,groupId);
 			
 		return groupDetails;
 
 	}
 	@GetMapping()
-	public List<Group> getGroupDetailsByName(@RequestParam("offeringId") int offeringId,
+	public List<Group> getGroupDetailsByName(@RequestParam("offeringId") String offeringId,
 			@RequestParam("offeringLevelId") int offeringLevelId,@RequestParam("groupName") String groupName) {
 		return groupAppService.getGroupByName(offeringLevelId,groupName);
 

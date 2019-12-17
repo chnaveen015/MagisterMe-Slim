@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.Query;
 
 import com.magister.slim.entity.Unit;
 
-public interface UnitInterface extends MongoRepository<Unit,Integer>{
+public interface UnitInterface extends MongoRepository<Unit,String>{
 
 	@Query("{'unitName':?0}")
 	List<Unit> getUnits(String unitName);

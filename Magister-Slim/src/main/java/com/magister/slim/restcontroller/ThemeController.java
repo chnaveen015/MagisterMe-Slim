@@ -38,7 +38,7 @@ public class ThemeController {
 	StudyGuide studyGuide = new StudyGuide();
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Theme createTheme(@RequestBody Theme theme, @PathVariable("studyGuideId") int studyGuideId) {
+	public Theme createTheme(@RequestBody Theme theme, @PathVariable("studyGuideId") String studyGuideId) {
 		studyGuideReference.setStudyGuideId(studyGuideId);
 		if (studyGuideInterface.findById(studyGuideId).isPresent()) {
 			studyGuide = studyGuideInterface.findById(studyGuideId).get();
@@ -54,8 +54,8 @@ public class ThemeController {
 	}
 
 	@RequestMapping(value = "/{themeId}", method = RequestMethod.PUT)
-	public Theme updateThemeDetails(@PathVariable("themeId") int themeId, @RequestBody Theme theme,
-			@PathVariable("studyGuideId") int studyGuideId) {
+	public Theme updateThemeDetails(@PathVariable("themeId") String themeId, @RequestBody Theme theme,
+			@PathVariable("studyGuideId") String studyGuideId) {
 		String themeName = theme.getThemeName();
 		theme = themeInterface.findById(themeId).get();
 		if (theme.getUnits() != null) {
@@ -68,28 +68,28 @@ public class ThemeController {
 			theme.setUnits(unitReferences);
 		}
 		studyGuide = studyGuideInterface.findById(studyGuideId).get();
-		studyGuide.getThemes().stream().filter((studyGuideReference) -> studyGuideReference.getThemeId() == themeId)
+		studyGuide.getThemes().stream().filter((studyGuideReference) -> studyGuideReference.getThemeId().equals(themeId))
 				.findAny().get().setThemeName(themeName);
 		theme.setThemeName(themeName);
 		return themeAppService.updateTheme(theme, studyGuide);
 	}
 
 	@RequestMapping(value = "/{themeId}", method = RequestMethod.DELETE)
-	public int deleteThemeDetails(@PathVariable("themeId") int themeId,
-			@PathVariable("studyGuideId") int studyGuideId) {
-		int status = themeAppService.deleteTheme(themeId, studyGuideId);
+	public String deleteThemeDetails(@PathVariable("themeId") String themeId,
+			@PathVariable("studyGuideId") String studyGuideId) {
+		String status = themeAppService.deleteTheme(themeId, studyGuideId);
 		return status;
 	}
 
 	@RequestMapping(value = "/{themeId}", method = RequestMethod.GET)
-	public Theme getThemeDetail(@PathVariable("themeId") int themeId, @PathVariable("studyGuideId") int studyGuideId) {
+	public Theme getThemeDetail(@PathVariable("themeId") String themeId, @PathVariable("studyGuideId") String studyGuideId) {
 		Theme theme = themeAppService.getTheme(themeId, studyGuideId);
 		return theme;
 
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Theme> getThemeDetails(@RequestParam String themeName, @PathVariable("studyGuideId") int studyGuideId) {
+	public List<Theme> getThemeDetails(@RequestParam String themeName, @PathVariable("studyGuideId") String studyGuideId) {
 		List<Theme> themes = themeAppService.getThemes(themeName, studyGuideId);
 		return themes;
 	}

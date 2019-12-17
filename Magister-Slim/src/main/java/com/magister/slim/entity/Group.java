@@ -15,7 +15,7 @@ import com.magister.slim.references.TeacherReference;
 public class Group {
 
 	@Id
-	private int groupId;
+	private String groupId;
 	private String groupName;
 	private List<StudentReference> students;
 	private TeacherReference teacherReference;
@@ -23,11 +23,11 @@ public class Group {
 	private OfferingLevelReference offeringLevelReference;
 	private boolean isActive;
 
-	public int getGroupId() {
+	public String getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(int groupId) {
+	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
 
@@ -93,7 +93,7 @@ public class Group {
 				+ ", offeringLevelReference=" + offeringLevelReference + ", isActive=" + isActive + "]";
 	}
 
-	public Group(int groupId, String groupName, List<StudentReference> students, TeacherReference teacherReference,
+	public Group(String groupId, String groupName, List<StudentReference> students, TeacherReference teacherReference,
 			List<CourseReference> coursesreference, OfferingLevelReference offeringLevelReference, boolean isActive) {
 		super();
 		this.groupId = groupId;

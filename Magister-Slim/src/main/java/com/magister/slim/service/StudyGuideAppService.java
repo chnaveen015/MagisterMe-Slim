@@ -34,7 +34,7 @@ public class StudyGuideAppService {
 	@Autowired
 	ResourceAppService resourceAppService;
 
-	public StudyGuide getStudyGuide(int studyGuideid) {
+	public StudyGuide getStudyGuideById(String studyGuideid) {
 		if (studyGuideInterface.findById(studyGuideid).isPresent()) {
 			StudyGuide studyGuide = studyGuideInterface.findById(studyGuideid).get();
 			return studyGuide;
@@ -59,7 +59,7 @@ public class StudyGuideAppService {
 		return studyGuide;
 	}
 
-	public int deleteStudyGuide(int studyGuideId) {
+	public String deleteStudyGuide(String studyGuideId) {
 		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
 		studyGuide.setActive(false);
 		studyGuide.setDeleted(true);
@@ -88,7 +88,7 @@ public class StudyGuideAppService {
 		return studyGuideId;
 	}
 
-	public StudyGuide updateStudyGuide(StudyGuide studyGuide, int studyGuideId) {
+	public StudyGuide updateStudyGuide(StudyGuide studyGuide, String studyGuideId) {
 		StudyGuide sg = studyGuideInterface.findById(studyGuideId).get();
 		if (studyGuide.getStudyGuideName() != null) {
 			sg.setStudyGuideName(studyGuide.getStudyGuideName());
@@ -140,7 +140,7 @@ public class StudyGuideAppService {
 		return studyGuide;
 	}
 
-	public List<StudyGuideReference> studyGuideDetails(int id, String studyGuideName) {
+	public List<StudyGuideReference> studyGuideDetails(String id, String studyGuideName) {
 		StudyGuideReference studyGuideReference = new StudyGuideReference();
 		List<StudyGuideReference> sR = new ArrayList<StudyGuideReference>();
 		studyGuideReference.setStudyGuideId(id);
@@ -167,7 +167,7 @@ public class StudyGuideAppService {
 //		return studentReference;
 //	}
 //
-	public TeacherReference teacherDetails(int id, String teacherName) {
+	public TeacherReference teacherDetails(String id, String teacherName) {
 		TeacherReference teacherReference = new TeacherReference();
 		teacherReference.setTeacherid(id);
 		teacherReference.setName(teacherName);
@@ -175,10 +175,10 @@ public class StudyGuideAppService {
 		return teacherReference;
 	}
 
-	public boolean deleteThemeReference(int themeId, int studyGuideId) {
+	public boolean deleteThemeReference(String themeId, String studyGuideId) {
 		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
 		List<ThemeReference> ThemeReferences = studyGuide.getThemes().stream().map(studyGuideReference -> {
-			if (studyGuideReference.getThemeId() == themeId) {
+			if (studyGuideReference.getThemeId().equals(themeId)) {
 				studyGuideReference.setActive(false);
 			}
 			return studyGuideReference;
@@ -188,7 +188,7 @@ public class StudyGuideAppService {
 		return true;
 	}
 
-	public boolean deleteUnitReference(int unitId, int studyGuideId) {
+	public boolean deleteUnitReference(String unitId, String studyGuideId) {
 		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
 		List<UnitReference> unitReferences = studyGuide.getUnits().stream().map(unitReference -> {
 			if (unitReference.getUnitId() == unitId) {

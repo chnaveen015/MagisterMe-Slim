@@ -2,13 +2,13 @@ package com.magister.slim.references;
 
 public class AssignmentResultReference {
 	
-	int assignmentResultId;
+	String assignmentResultId;
 
-	public int getAssignmentResultId() {
+	public String getAssignmentResultId() {
 		return assignmentResultId;
 	}
 
-	public void setAssignmentResultId(int assignmentResultId) {
+	public void setAssignmentResultId(String assignmentResultId) {
 		this.assignmentResultId = assignmentResultId;
 	}
 	

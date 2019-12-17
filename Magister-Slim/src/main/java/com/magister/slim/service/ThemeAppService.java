@@ -22,7 +22,7 @@ public class ThemeAppService {
 	@Autowired
 	StudyGuideAppService studyGuideAppService;
 
-	public List<Theme> getThemes(String themeName, int studyGuideId) {
+	public List<Theme> getThemes(String themeName, String studyGuideId) {
 		List<Theme> themes = themeInterface.getThemes(themeName);
 		List<Theme> themeReferences = themes.stream().map(themeReference -> {
 			if (themeReference.getStudyGuideReference().getStudyGuideId() == studyGuideId) {
@@ -33,7 +33,7 @@ public class ThemeAppService {
 		return themeReferences;
 	}
 
-	public int deleteTheme(int themeId, int studyGuideId) {
+	public String deleteTheme(String themeId, String studyGuideId) {
 		Theme theme = themeInterface.findById(themeId).get();
 		theme.setActive(false);
 		themeInterface.save(theme);
@@ -54,7 +54,7 @@ public class ThemeAppService {
 		return theme;
 	}
 
-	public List<ThemeReference> themeDetails(int id, String themeName, StudyGuide studyGuide) {
+	public List<ThemeReference> themeDetails(String id, String themeName, StudyGuide studyGuide) {
 		ThemeReference themeReference = new ThemeReference();
 		List<ThemeReference> themes = new ArrayList<ThemeReference>();
 		themes = studyGuide.getThemes();
@@ -67,10 +67,10 @@ public class ThemeAppService {
 		return themes;
 	}
 
-	public Theme getTheme(int themeid, int studyGuideId) {
+	public Theme getTheme(String themeid, String studyGuideId) {
 		if (themeInterface.findById(themeid).isPresent()) {
 			Theme theme = themeInterface.findById(themeid).get();
-			if (theme.getStudyGuideReference().getStudyGuideId() == studyGuideId)
+			if (theme.getStudyGuideReference().getStudyGuideId().equals( studyGuideId))
 				return theme;
 			else
 				return null;
@@ -78,10 +78,10 @@ public class ThemeAppService {
 			return null;
 	}
 
-	public boolean deleteUnitReference(int unitId, int themeId) {
+	public boolean deleteUnitReference(String unitId, String themeId) {
 		Theme theme = themeInterface.findById(themeId).get();
 		List<UnitReference> unitReferences = theme.getUnits().stream().map(themeReference -> {
-			if (themeReference.getUnitId() == unitId) {
+			if (themeReference.getUnitId().equals(unitId)) {
 				themeReference.setActive(false);
 			}
 			return themeReference;

@@ -5,13 +5,13 @@ import org.springframework.data.annotation.Id;
 public class TeacherReference {
 	
 	@Id
-	private int teacherid;
+	private String teacherid;
 	private String name;
 	private boolean isActive;
-	public int getTeacherid() {
+	public String getTeacherid() {
 		return teacherid;
 	}
-	public void setTeacherid(int teacherid) {
+	public void setTeacherid(String teacherid) {
 		this.teacherid = teacherid;
 	}
 	public String getName() {

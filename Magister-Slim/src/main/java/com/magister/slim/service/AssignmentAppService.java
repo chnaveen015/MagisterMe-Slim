@@ -21,11 +21,11 @@ public class AssignmentAppService {
 	@Autowired
 	UnitInterface unitInterface;
 
-	public List<Assignment> getAssignments(String assignmentName, int studyGuideId, int unitId) {
+	public List<Assignment> getAssignments(String assignmentName, String studyGuideId, String unitId) {
 		List<Assignment> assignments = assignmentInterface.getAssignments(assignmentName);
 		List<Assignment> assignmentReferences = assignments.stream().map(assignmentReference -> {
-			if (assignmentReference.getStudyGuideReference().getStudyGuideId() == studyGuideId
-					&& assignmentReference.getUnitReference().getUnitId() == unitId) {
+			if (assignmentReference.getStudyGuideReference().getStudyGuideId().equals(studyGuideId)
+					&& assignmentReference.getUnitReference().getUnitId() .equals(unitId)) {
 				return assignmentReference;
 			} else
 				return null;
@@ -33,7 +33,7 @@ public class AssignmentAppService {
 		return assignmentReferences;
 	}
 
-	public int deleteAssignment(int assignmentId, int unitId) {
+	public String deleteAssignment(String assignmentId, String unitId) {
 		Assignment assignment = assignmentInterface.findById(assignmentId).get();
 		assignment.setActive(false);
 		unitAppService.deleteAssignmentReference(unitId, assignmentId);
@@ -48,7 +48,7 @@ public class AssignmentAppService {
 		return assignment;
 	}
 
-	private List<AssignmentReference> assignmentDetails(int assignmentId, String assignmentName, Unit unit) {
+	private List<AssignmentReference> assignmentDetails(String assignmentId, String assignmentName, Unit unit) {
 		AssignmentReference assignmentReference = new AssignmentReference();
 		List<AssignmentReference> assignments = new ArrayList<AssignmentReference>();
 		assignments = unit.getAssignments();
@@ -68,7 +68,7 @@ public class AssignmentAppService {
 			if(unitInterface.findById(assignment0.getUnitReference().getUnitId()).isPresent()) {
 			Unit unit = unitInterface.findById(assignment0.getUnitReference().getUnitId()).get();
 			List<AssignmentReference> assignmentReferences = unit.getAssignments().stream().map(unitReference -> {
-				if (unitReference.getAssignmentId() == assignment.getAssignmentId()) {
+				if (unitReference.getAssignmentId().equals( assignment.getAssignmentId())) {
 					unitReference.setAssignmentName(assignment.getAssignmentName());
 				}
 				return unitReference;
@@ -91,13 +91,13 @@ public class AssignmentAppService {
 		return assignment0;
 	}
 
-	public Assignment getAssignment(int assignmentid, int studyGuideId, int unitId) {
+	public Assignment getAssignment(String assignmentid, String studyGuideId, String unitId) {
 		System.out.println(assignmentid);
 		System.out.println(assignmentInterface.findById(assignmentid));
 		if (assignmentInterface.findById(assignmentid).isPresent()) {
 			Assignment assignment = assignmentInterface.findById(assignmentid).get();
-			if (assignment.getStudyGuideReference().getStudyGuideId() == studyGuideId
-					&& assignment.getUnitReference().getUnitId() == unitId)
+			if (assignment.getStudyGuideReference().getStudyGuideId().equals(studyGuideId)
+					&& assignment.getUnitReference().getUnitId().equals(unitId))
 				return assignment;
 			return assignment;
 		} else

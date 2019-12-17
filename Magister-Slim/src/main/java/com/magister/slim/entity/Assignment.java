@@ -12,7 +12,7 @@ import com.magister.slim.references.UnitReference;
 @Document
 public class Assignment {
 	@Id
-	private int assignmentId;
+	private String assignmentId;
 	private String assignmentName;
 	private String validOnwards;
 	private String validUpto;
@@ -22,10 +22,10 @@ public class Assignment {
 	private UnitReference unitReference;
 	private StudyGuideReference studyGuideReference;
 	private TeacherReference createdBy;
-	public int getAssignmentId() {
+	public String getAssignmentId() {
 		return assignmentId;
 	}
-	public void setAssignmentId(int assignmentId) {
+	public void setAssignmentId(String assignmentId) {
 		this.assignmentId = assignmentId;
 	}
 	public String getAssignmentName() {
@@ -82,7 +82,7 @@ public class Assignment {
 	public void setCreatedBy(TeacherReference createdBy) {
 		this.createdBy = createdBy;
 	}
-	public Assignment(int assignmentId, String assignmentName, String validOnwards, String validUpto,
+	public Assignment(String assignmentId, String assignmentName, String validOnwards, String validUpto,
 			List<StudentReference> students, List<AssignmentResultReference> assignmentResultReference,
 			boolean isActive, UnitReference unitReference, StudyGuideReference studyGuideReference,
 			TeacherReference createdBy) {

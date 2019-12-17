@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.Query;
 
 import com.magister.slim.entity.Group;
 
-public interface GroupInterface extends MongoRepository<Group,Integer>{
+public interface GroupInterface extends MongoRepository<Group,String>{
 
 	@Query("{'groupName':?0}")
 	List<Group> getGroupByName(String groupName);

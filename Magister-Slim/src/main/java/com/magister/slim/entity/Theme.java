@@ -12,17 +12,17 @@ import com.magister.slim.references.UnitReference;
 public class Theme {
 
 	@Id
-	private int themeId;
+	private String themeId;
 	private String themeName;
 	private StudyGuideReference studyGuideReference;
 	private List<UnitReference> units;
 	private boolean isActive;
 
-	public int getThemeId() {
+	public String getThemeId() {
 		return themeId;
 	}
 
-	public void setThemeId(int themeId) {
+	public void setThemeId(String themeId) {
 		this.themeId = themeId;
 	}
 
@@ -64,7 +64,7 @@ public class Theme {
 				+ ", units=" + units + ", isActive=" + isActive + "]";
 	}
 
-	public Theme(int themeId, String themeName, StudyGuideReference studyGuideReference, List<UnitReference> units,
+	public Theme(String themeId, String themeName, StudyGuideReference studyGuideReference, List<UnitReference> units,
 			boolean isActive) {
 		super();
 		this.themeId = themeId;

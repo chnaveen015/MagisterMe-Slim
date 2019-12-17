@@ -5,16 +5,16 @@ import org.springframework.data.annotation.Id;
 public class StudentReference {
 
 	@Id
-	private int id;
+	private String id;
 	private String name;
 	private boolean isActive;
 	
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -34,7 +34,7 @@ public class StudentReference {
 		this.isActive = isActive;
 	}
 
-	public StudentReference(int id, String name, boolean isActive) {
+	public StudentReference(String id, String name, boolean isActive) {
 		super();
 		this.id = id;
 		this.name = name;

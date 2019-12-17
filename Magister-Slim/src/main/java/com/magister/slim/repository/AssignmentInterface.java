@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.Query;
 
 import com.magister.slim.entity.Assignment;
 
-public interface AssignmentInterface extends MongoRepository<Assignment,Integer>{
+public interface AssignmentInterface extends MongoRepository<Assignment,String>{
 
 	@Query("{'assignmentName':?0}")
 	List<Assignment> getAssignments(String assignmentName);

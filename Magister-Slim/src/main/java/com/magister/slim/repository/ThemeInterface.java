@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.Query;
 
 import com.magister.slim.entity.Theme;
 
-public interface ThemeInterface extends MongoRepository<Theme,Integer>{
+public interface ThemeInterface extends MongoRepository<Theme,String>{
 
 	@Query("{'themeName':?0}")
 	List<Theme> getThemes(String themeName);

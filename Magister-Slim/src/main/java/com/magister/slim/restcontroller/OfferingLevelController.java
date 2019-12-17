@@ -33,7 +33,7 @@ public class OfferingLevelController {
 	OfferingAppService offeringAppService;
 
 	@PostMapping(value = "")
-	public OfferingLevel createOfferingLevel(@PathVariable("offeringId") int offeringId,
+	public OfferingLevel createOfferingLevel(@PathVariable("offeringId") String offeringId,
 			@RequestBody OfferingLevel offeringLevel) {
 		Offering offering = offeringAppService.getOfferingById(offeringId);
 		if (offering != null) {
@@ -46,15 +46,15 @@ public class OfferingLevelController {
 	}
 
 	@DeleteMapping(value = "{offeringLevelId}")
-	public OfferingLevel deleteOfferingLevel(@PathVariable("offeringId") int offeringId,
-			@PathVariable("offeringLevelId") int offeringLevelId) {
+	public OfferingLevel deleteOfferingLevel(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId) {
 		OfferingLevel status = offeringLevelAppService.deleteOfferingLevel(offeringId, offeringLevelId);
 		return status;
 	}
 
 	@PutMapping(value = "{offeringLevelId}")
-	public OfferingLevel updateOfferingLevel(@PathVariable("offeringId") int offeringId,
-			@PathVariable("offeringLevelId") int offeringLevelId, @RequestBody OfferingLevel offeringLevel) {
+	public OfferingLevel updateOfferingLevel(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId, @RequestBody OfferingLevel offeringLevel) {
 		offeringLevel.setOfferingLevelId(offeringLevelId);
 		offeringLevel.setOfferingReference(new OfferingReference());
 		offeringLevel.getOfferingReference().setOfferingId(offeringId);
@@ -63,14 +63,14 @@ public class OfferingLevelController {
 	}
 
 	@GetMapping(value = "{offeringLevelId}")
-	public OfferingLevel getOfferingLevelDetails(@PathVariable("offeringId") int offeringId,
-			@PathVariable("offeringLevelId") int offeringLevelId) {
+	public OfferingLevel getOfferingLevelDetails(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId) {
 		OfferingLevel offeringLevel = offeringLevelAppService.getOfferingLevelById(offeringId, offeringLevelId);
 		return offeringLevel;
 	}
 
 	@GetMapping()
-	public OfferingLevel getOfferingLevelByName(@PathVariable("offeringId") int offeringId,
+	public OfferingLevel getOfferingLevelByName(@PathVariable("offeringId") String offeringId,
 			@RequestParam("offeringLevelName") String offeringLevelName) {
 		return offeringLevelAppService.getOfferingLevelByName(offeringId, offeringLevelName);
 

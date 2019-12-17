@@ -10,18 +10,18 @@ import com.magister.slim.references.TeacherReference;
 public class Resource {
 
 	@Id
-	private int resourceId;
+	private String resourceId;
 	private String resourceType;
 	private String resourceName;
 	private StudyGuideReference studyGuideReference;
 	private TeacherReference createdBy;
 	private boolean isActive;
 
-	public int getResourceId() {
+	public String getResourceId() {
 		return resourceId;
 	}
 
-	public void setResourceId(int resourceId) {
+	public void setResourceId(String resourceId) {
 		this.resourceId = resourceId;
 	}
 
@@ -72,7 +72,7 @@ public class Resource {
 				+ ", isActive=" + isActive + "]";
 	}
 
-	public Resource(int resourceId, String resourceType, String resourceName, StudyGuideReference studyGuideReference,
+	public Resource(String resourceId, String resourceType, String resourceName, StudyGuideReference studyGuideReference,
 			TeacherReference createdBy, boolean isActive) {
 		super();
 		this.resourceId = resourceId;

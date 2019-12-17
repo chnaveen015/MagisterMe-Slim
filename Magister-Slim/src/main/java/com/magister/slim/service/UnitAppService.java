@@ -29,11 +29,11 @@ public class UnitAppService {
 	ThemeAppService themeAppService;
 	StudyGuideAppService studyGuideAppService;
 
-	public Unit getUnit(int unitid, int themeId, int studyGuideId) {
+	public Unit getUnit(String unitid, String themeId, String studyGuideId) {
 		if (unitInterface.findById(unitid).isPresent()) {
 			Unit unit = unitInterface.findById(unitid).get();
-			if (unit.getStudyGuideReference().getStudyGuideId() == studyGuideId
-					&& unit.getThemeReference().getThemeId() == themeId) {
+			if (unit.getStudyGuideReference().getStudyGuideId().equals(studyGuideId)
+					&& unit.getThemeReference().getThemeId().equals(themeId)) {
 				return unit;
 			} else
 				return null;
@@ -41,11 +41,11 @@ public class UnitAppService {
 			return null;
 	}
 
-	public List<Unit> getUnits(String unitName, int themeId, int studyGuideId) {
+	public List<Unit> getUnits(String unitName, String themeId, String studyGuideId) {
 		List<Unit> units = unitInterface.getUnits(unitName);
 		List<Unit> unitReferences = units.stream().map(unitReference -> {
-			if (unitReference.getStudyGuideReference().getStudyGuideId() == studyGuideId
-					&& unitReference.getThemeReference().getThemeId() == themeId) {
+			if (unitReference.getStudyGuideReference().getStudyGuideId().equals(studyGuideId)
+					&& unitReference.getThemeReference().getThemeId().equals( themeId)) {
 				return unitReference;
 			} else
 				return null;
@@ -53,7 +53,7 @@ public class UnitAppService {
 		return unitReferences;
 	}
 
-	public int deleteUnit(int unitId, int themeId, int studyGuideId) {
+	public String deleteUnit(String unitId, String themeId, String studyGuideId) {
 		Unit unit = unitInterface.findById(unitId).get();
 		unit.setActive(false);
 		studyGuideAppService.deleteUnitReference(unitId, studyGuideId);
@@ -80,7 +80,7 @@ public class UnitAppService {
 		return unit;
 	}
 
-	public List<UnitReference> unitDetails(int unitId, String unitName, Theme theme) {
+	public List<UnitReference> unitDetails(String unitId, String unitName, Theme theme) {
 		UnitReference unitReference = new UnitReference();
 		List<UnitReference> units = new ArrayList<UnitReference>();
 		units = theme.getUnits();
@@ -93,7 +93,7 @@ public class UnitAppService {
 		return units;
 	}
 
-	public List<UnitReference> unitDetails(int unitId, String unitName, StudyGuide studyGuide) {
+	public List<UnitReference> unitDetails(String unitId, String unitName, StudyGuide studyGuide) {
 		UnitReference unitReference = new UnitReference();
 		List<UnitReference> units = new ArrayList<UnitReference>();
 		units = studyGuide.getUnits();
@@ -105,10 +105,10 @@ public class UnitAppService {
 		units.add(unitReference);
 		return units;
 	}
-	public boolean deleteAssignmentReference(int unitId, int assignmentId) {
+	public boolean deleteAssignmentReference(String unitId, String assignmentId) {
 		Unit unit = unitInterface.findById(unitId).get();
 		List<AssignmentReference> assignmentReferences = unit.getAssignments().stream().map(assignmentReference -> {
-			if (assignmentReference.getAssignmentId() == assignmentId) {
+			if (assignmentReference.getAssignmentId().equals(assignmentId)) {
 				assignmentReference.setActive(false);
 			}
 			return assignmentReference;

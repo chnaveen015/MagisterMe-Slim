@@ -9,17 +9,17 @@ import com.magister.slim.references.StudentReference;
 public class AssignmentResult {
 
 	@Id
-	private int assignmentResultId;
+	private String assignmentResultId;
 	private StudentReference studentReference;
 	private AssignmentReference assignmentReference;
 	private int assignedMarks;
 	private int totalmarks;
 
-	public int getAssignmentResultId() {
+	public String getAssignmentResultId() {
 		return assignmentResultId;
 	}
 
-	public void setAssignmentResultId(int assignmentResultId) {
+	public void setAssignmentResultId(String assignmentResultId) {
 		this.assignmentResultId = assignmentResultId;
 	}
 
@@ -62,7 +62,7 @@ public class AssignmentResult {
 				+ totalmarks + "]";
 	}
 
-	public AssignmentResult(int assignmentResultId, StudentReference studentReference,
+	public AssignmentResult(String assignmentResultId, StudentReference studentReference,
 			AssignmentReference assignmentReference, int assignedMarks, int totalmarks) {
 		super();
 		this.assignmentResultId = assignmentResultId;

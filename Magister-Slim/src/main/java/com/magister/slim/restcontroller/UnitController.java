@@ -42,8 +42,8 @@ public class UnitController {
 	ThemeReference themeReference = new ThemeReference();
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public Unit createUnit(@RequestBody Unit unit, @PathVariable("studyGuideId") int studyGuideId,
-			@PathVariable("themeId") int themeId) {
+	public Unit createUnit(@RequestBody Unit unit, @PathVariable("studyGuideId") String studyGuideId,
+			@PathVariable("themeId") String themeId) {
 		if (studyGuideInterface.findById(studyGuideId).isPresent()&&themeInterface.findById(themeId).isPresent()) {
 		studyGuide = studyGuideInterface.findById(studyGuideId).get();
 		studyGuideReference.setStudyGuideId(studyGuide.getStudyGuideId());
@@ -64,17 +64,17 @@ public class UnitController {
 	}
 
 	@RequestMapping(value = "/{unitId}", method = RequestMethod.DELETE)
-	public int deleteUnitDetails(@PathVariable("unitId") int unitId, @PathVariable("studyGuideId") int studyGuideId,
-			@PathVariable("themeId") int themeId) {
+	public String deleteUnitDetails(@PathVariable("unitId") String unitId, @PathVariable("studyGuideId") String studyGuideId,
+			@PathVariable("themeId") String themeId) {
 //		studyGuideReference.setStudyGuideId(studyGuideId);
 //		themeReference.setThemeId(themeId);
-		int status = unitAppService.deleteUnit(unitId,themeId,studyGuideId);
+		String status = unitAppService.deleteUnit(unitId,themeId,studyGuideId);
 		return status;
 	}
 
 	@RequestMapping(value = "/{unitId}", method = RequestMethod.PUT)
-	public Unit updateUnitDetails(@PathVariable("unitId") int unitId, @PathVariable("studyGuideId") int studyGuideId,
-			@PathVariable("themeId") int themeId, @RequestBody Unit unit) {
+	public Unit updateUnitDetails(@PathVariable("unitId") String unitId, @PathVariable("studyGuideId") String studyGuideId,
+			@PathVariable("themeId") String themeId, @RequestBody Unit unit) {
 		studyGuideReference.setStudyGuideId(studyGuideId);
 		themeReference.setThemeId(themeId);
 		String unitName = unit.getUnitName();
@@ -82,14 +82,14 @@ public class UnitController {
 		Theme theme = themeInterface.findById(themeReference.getThemeId()).get();
 		if (unit.getUnitName() != null) {
 			List<UnitReference> unitReferences = theme.getUnits().stream().map(unitReference -> {
-				if (unitReference.getUnitId() == unitId) {
+				if (unitReference.getUnitId().equals(unitId)) {
 					unitReference.setUnitName(unitName);
 				}
 				return unitReference;
 			}).collect(Collectors.toList());
 			theme.setUnits(unitReferences);
 			List<UnitReference> unitReferences1 = studyGuide.getUnits().stream().map(unitReference -> {
-				if (unitReference.getUnitId() == unitId) {
+				if (unitReference.getUnitId().equals(unitId)) {
 					unitReference.setUnitName(unitName);
 				}
 				return unitReference;
@@ -103,15 +103,15 @@ public class UnitController {
 	}
 
 	@RequestMapping(value = "/{unitId}", method = RequestMethod.GET)
-	public Unit getUnitDetail(@PathVariable("studyGuideId") int studyGuideId, @PathVariable("themeId") int themeId,
-			@PathVariable("unitId") int unitId) {
+	public Unit getUnitDetail(@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId,
+			@PathVariable("unitId") String unitId) {
 		Unit unit = unitAppService.getUnit(unitId, themeId, studyGuideId);
 		return unit;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Unit> getUnitDetails(@PathVariable("studyGuideId") int studyGuideId,
-			@PathVariable("themeId") int themeId, @RequestParam String unitName) {
+	public List<Unit> getUnitDetails(@PathVariable("studyGuideId") String studyGuideId,
+			@PathVariable("themeId") String themeId, @RequestParam String unitName) {
 		List<Unit> units = unitAppService.getUnits(unitName, themeId, studyGuideId);
 		return units;
 	}

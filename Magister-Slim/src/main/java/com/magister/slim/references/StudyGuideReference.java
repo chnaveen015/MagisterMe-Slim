@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 public class StudyGuideReference {
 	
 	@Id
-	private int studyGuideId;
+	private String studyGuideId;
 	private String studyGuideName;
 	private boolean isActive;
 	
@@ -14,10 +14,10 @@ public class StudyGuideReference {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public int getStudyGuideId() {
+	public String getStudyGuideId() {
 		return studyGuideId;
 	}
-	public void setStudyGuideId(int studyGuideId) {
+	public void setStudyGuideId(String studyGuideId) {
 		this.studyGuideId = studyGuideId;
 	}
 	public String getStudyGuideName() {

@@ -5,15 +5,15 @@ import org.springframework.data.annotation.Id;
 public class ResourceReference {
 
 	@Id
-	private int resourceId;
+	private String resourceId;
 	private String resourceType;
 	private String resourceName;
 
-	public int getResourceId() {
+	public String getResourceId() {
 		return resourceId;
 	}
 
-	public void setResourceId(int resourceId) {
+	public void setResourceId(String resourceId) {
 		this.resourceId = resourceId;
 	}
 

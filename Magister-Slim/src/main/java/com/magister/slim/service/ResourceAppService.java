@@ -48,7 +48,7 @@ public class ResourceAppService {
 		}
 	}
 
-	public String deleteResource(int resourceId) {
+	public String deleteResource(String resourceId) {
 		String status = null;
 		Resource resource = resourceInterface.findById(resourceId).get();
 		if (resource.getStudyGuideReference() != null) {
@@ -67,7 +67,7 @@ public class ResourceAppService {
 		return resource;
 	}
 	
-	public TeacherReference teacherDetails(int id, String teacherName) {
+	public TeacherReference teacherDetails(String id, String teacherName) {
 		TeacherReference teacherReference = new TeacherReference();
 		teacherReference.setTeacherid(id);
 		teacherReference.setName(teacherName);
@@ -82,7 +82,7 @@ public class ResourceAppService {
 //		return studyGuideReference;
 //	}
 
-	public Resource getResource(int resourceid) {
+	public Resource getResource(String resourceid) {
 		if (resourceInterface.findById(resourceid).isPresent()) {
 			Resource resource = resourceInterface.findById(resourceid).get();
 			return resource;
@@ -90,7 +90,7 @@ public class ResourceAppService {
 			return null;
 	}
 
-	public Resource updateResource(int resourceId, Resource resource2) {
+	public Resource updateResource(String resourceId, Resource resource2) {
 		Resource resource=resourceInterface.findById(resourceId).get();
 		resource.setResourceName(resource2.getResourceName());
 		resource.setResourceType(resource2.getResourceType());
@@ -101,7 +101,7 @@ public class ResourceAppService {
 			List<UnitReference> unitReferences1 = studyGuide.getUnits().stream().map(unitReference -> {
 				Unit unit=unitInerface.findById(unitReference.getUnitId()).get();
 				List<ResourceReference> resourceReferencce =(List<ResourceReference>) unit.getResources().stream().map(resourceReference->{
-					if(resourceReference.getResourceId()==resourceId) {
+					if(resourceReference.getResourceId().equals(resourceId)) {
 					resourceReference.setResourceName(resource.getResourceName());
 					resourceReference.setResourceType(resource.getResourceType());
 					}

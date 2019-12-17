@@ -32,20 +32,20 @@ public class ResourceController {
 	}
 
 	@RequestMapping(value = "/{resourceId}", method = RequestMethod.PUT)
-	public Resource updateResourceDetails(@RequestBody Resource resource, @PathVariable("resourceId") int resourceId) {
+	public Resource updateResourceDetails(@RequestBody Resource resource, @PathVariable("resourceId") String resourceId) {
 		if (resource.getResourceName() != null && resource.getResourceType() != null)
 			resourceAppService.updateResource(resourceId, resource);
 		return resource;
 	}
 
 	@RequestMapping(value = "/{resourceId}", method = RequestMethod.DELETE)
-	public String deleteResourceDetails(@PathVariable("resourceId") int resourceId) {
+	public String deleteResourceDetails(@PathVariable("resourceId") String resourceId) {
 		String status = resourceAppService.deleteResource(resourceId);
 		return status;
 	}
 
 	@RequestMapping(value = "/{resourceId}", method = RequestMethod.GET)
-	public Resource getResourceDetail(@PathVariable("resourceId") int resourceId) {
+	public Resource getResourceDetail(@PathVariable("resourceId") String resourceId) {
 		Resource resource = resourceAppService.getResource(resourceId);
 		return resource;
 	}
