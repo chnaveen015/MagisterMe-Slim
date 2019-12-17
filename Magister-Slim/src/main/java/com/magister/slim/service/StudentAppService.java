@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magister.slim.entity.Student;
-import com.magister.slim.entity.User;
-import com.magister.slim.entity.User.role;
 import com.magister.slim.repository.StudentInterface;
 
 @Service
@@ -32,7 +30,6 @@ public class StudentAppService {
 		return student;
 	}
 	public Student addStudentDetails(Student studentDetails) {
-		
 		return studentInterface.save(studentDetails);
 	}
 }

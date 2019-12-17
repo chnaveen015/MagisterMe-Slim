@@ -13,8 +13,16 @@ public class User {
 	private int userid;
 	private String username;
 	private String password;
+	private role role;
 	public enum role{student , teacher;}
 	private boolean active;
+	public void setUserType(role input){
+        role= input;
+    }
+	public role getRole()
+	{
+		return role;
+	}
 	public int getUserid() {
 		return userid;
 	}
@@ -39,6 +47,7 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
 	public User(int userid, String username, String password, boolean active) {
 		super();
 		this.userid = userid;
@@ -55,5 +64,4 @@ public class User {
 	{
 		
 	}
-
 }

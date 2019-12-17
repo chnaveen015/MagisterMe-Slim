@@ -1,7 +1,5 @@
 package com.magister.slim.restcontroller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Student;
-import com.magister.slim.entity.Teacher;
 import com.magister.slim.service.StudentAppService;
 
 @RestController
@@ -23,7 +20,9 @@ public class StudentController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Student addStudent(@RequestBody Student studentDetails) {
-		Student status = studentAppService.addStudentDetails(studentDetails);
+		studentDetails.setActive(true);
+		studentDetails.setUserReference(studentDetails.getid());
+		studentAppService.addStudentDetails(studentDetails);
 		return null;
 	}
 

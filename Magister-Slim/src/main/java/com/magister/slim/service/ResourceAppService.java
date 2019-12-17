@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import com.magister.slim.entity.Resource;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Unit;
+import com.magister.slim.entity.User;
 import com.magister.slim.references.ResourceReference;
+import com.magister.slim.references.TeacherReference;
 import com.magister.slim.references.UnitReference;
 import com.magister.slim.repository.ResourceInterface;
 import com.magister.slim.repository.StudyGuideInterface;
@@ -31,6 +33,20 @@ public class ResourceAppService {
 			return resources;
 		}
 	}
+	
+	public List<Resource> getResources(User user) {
+		if (resourceInterface.findAll().isEmpty())
+			return null;
+		else {
+			List<Resource> resources = resourceInterface.findAll();
+			for(int i=0;i<resources.size();i++)
+			{
+				if(user.getUserid()!=resources.get(i).getCreatedBy().getTeacherid())
+					resources.remove(i);
+			}
+			return resources;
+		}
+	}
 
 	public String deleteResource(int resourceId) {
 		String status = null;
@@ -45,17 +61,19 @@ public class ResourceAppService {
 		return status;
 	}
 
-	public Resource addResource(Resource resource) {
+	public Resource addResource(Resource resource,User user) {
+		resource.setCreatedBy(teacherDetails(user.getUserid(), user.getUsername()));
 		resourceInterface.save(resource);
 		return resource;
 	}
 	
-//	public TeacherReference teacherDetails(int id, String teacherName) {
-//		TeacherReference teacherReference = new TeacherReference();
-//		teacherReference.setTeacherid(id);
-//		teacherReference.setName(teacherName);
-//		return teacherReference;
-//	}
+	public TeacherReference teacherDetails(int id, String teacherName) {
+		TeacherReference teacherReference = new TeacherReference();
+		teacherReference.setTeacherid(id);
+		teacherReference.setName(teacherName);
+		teacherReference.setActive(true);
+		return teacherReference;
+	}
 //
 //	public StudyGuideReference studyGuideDetails(int id, String studyGuideName) {
 //		StudyGuideReference studyGuideReference = new StudyGuideReference();
