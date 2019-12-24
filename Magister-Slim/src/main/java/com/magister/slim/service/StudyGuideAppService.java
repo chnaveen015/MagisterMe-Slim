@@ -49,13 +49,15 @@ public class StudyGuideAppService {
 	
 	public List<StudyGuide> getStudyGuide(User user) {
 		List<StudyGuide> studyGuide = studyGuideInterface.findAll();
-		System.out.println(studyGuide.size());
 		for(int i=0;i<studyGuide.size();i++)
 		{
-			if(user.getUserid()!=studyGuide.get(i).getTeacherReference().getTeacherid())
+			if(user.getUserid().equals(studyGuide.get(i).getTeacherReference().getTeacherid()))
+			{
+				
+			}
+			else
 				studyGuide.remove(i);
 		}
-		System.out.println(studyGuide);
 		return studyGuide;
 	}
 

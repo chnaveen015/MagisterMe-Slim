@@ -1,5 +1,6 @@
 package com.magister.slim.restcontroller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.User;
+import com.magister.slim.model.MagisterInterceptor;
 import com.magister.slim.service.StudyGuideAppService;
+import com.magister.slim.service.UserAppService;
 
 @RestController
 @RequestMapping("studyGuide")
@@ -23,9 +26,12 @@ public class StudyGuideController {
 
 	@Autowired
 	StudyGuideAppService studyGuideAppService;
+	MagisterInterceptor magisterInterceptor;
+	UserAppService userAppService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public StudyGuide createStudyGuide(@RequestBody StudyGuide studyGuide,HttpServletRequest request) {
+	public StudyGuide createStudyGuide(@RequestBody StudyGuide studyGuide,HttpServletRequest request) throws ParseException {
+		studyGuide.setStudyGuideId(userAppService.generateNumber());
 		studyGuide.setActive(true);
 		User user= (User) request.getServletContext().getAttribute("user");
 		StudyGuide status = studyGuideAppService.addStudyGuide(studyGuide,user);
@@ -59,8 +65,9 @@ public class StudyGuideController {
 //		return studyGuide;
 //	}
 	@RequestMapping(method = RequestMethod.GET)
-	public List<StudyGuide> getStudyGuide(HttpServletRequest request) {
+	public List<StudyGuide> getStudyGuide(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		User user= (User) request.getServletContext().getAttribute("user");
+		//magisterInterceptor.preHandle(request, response, user);
 		List<StudyGuide> studyGuide = studyGuideAppService.getStudyGuide(user);
 		return studyGuide;
 	}

@@ -78,14 +78,4 @@ public class JWTUtil {
 		return ss;
 	}
 	
-	public static void main(String[] args) {
-		String payload = "MyPayload";
-		String token = generateToken(payload);
-		boolean valid = verifyToken(token);
-		String tokenPayload = getPayload(token);
-		
-		System.out.println(token);
-		System.out.println(valid);
-		System.out.println(tokenPayload);
-	}
 }

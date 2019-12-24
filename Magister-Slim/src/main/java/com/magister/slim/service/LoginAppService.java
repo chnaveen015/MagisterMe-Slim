@@ -9,6 +9,7 @@ import com.magister.slim.entity.User;
 import com.magister.slim.entity.User.role;
 import com.magister.slim.repository.StudentInterface;
 import com.magister.slim.repository.UserInterface;
+import com.magister.slim.util.JWTUtil;
 
 @Service
 public class LoginAppService {
@@ -28,6 +29,8 @@ public class LoginAppService {
 				&& userdata.getPassword().equals(user.getPassword())).forEach(userdata ->{if (userdata.getRole().equals(role.teacher)) {user.setUserType(role.teacher);user.setUserid(userdata.getUserid());}
 				  else if(userdata.getRole().equals(role.student)) {user.setUserType(role.student);user.setUserid(userdata.getUserid());};
 					});
+		JWTUtil.generateToken(user.toString());
+		System.out.println(JWTUtil.generateToken(user.toString()));
 		return user;
 	}
 

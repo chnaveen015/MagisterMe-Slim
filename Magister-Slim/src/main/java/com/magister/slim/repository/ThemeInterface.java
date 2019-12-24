@@ -11,5 +11,8 @@ public interface ThemeInterface extends MongoRepository<Theme,String>{
 
 	@Query("{'themeName':?0}")
 	List<Theme> getThemes(String themeName);
+	
+	@Query("{'themeid':?0}")
+	Theme getTheme(String themeid);
 
 }

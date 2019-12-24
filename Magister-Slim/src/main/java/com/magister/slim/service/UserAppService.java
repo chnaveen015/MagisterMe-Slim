@@ -2,6 +2,8 @@ package com.magister.slim.service;
 
 import java.util.List;
 import java.util.Random;
+import java.text.ParseException;
+import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magister.slim.entity.User;
@@ -54,5 +56,12 @@ public class UserAppService {
 		
 		return null;
 	}
+	
+	public static String generateNumber() throws ParseException {
+		Calendar calendar = Calendar.getInstance();
+		System.out.println("Calender - Time in milliseconds : " + calendar.getTimeInMillis());
+		return Long.toString(calendar.getTimeInMillis());
+	  }
+	
 
 }

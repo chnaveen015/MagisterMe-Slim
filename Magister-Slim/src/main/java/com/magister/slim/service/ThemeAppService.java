@@ -25,7 +25,7 @@ public class ThemeAppService {
 	public List<Theme> getThemes(String themeName, String studyGuideId) {
 		List<Theme> themes = themeInterface.getThemes(themeName);
 		List<Theme> themeReferences = themes.stream().map(themeReference -> {
-			if (themeReference.getStudyGuideReference().getStudyGuideId() == studyGuideId) {
+			if (themeReference.getStudyGuideReference().getStudyGuideId().equals(studyGuideId)) {
 				return themeReference;
 			} else
 				return null;
@@ -34,9 +34,17 @@ public class ThemeAppService {
 	}
 
 	public String deleteTheme(String themeId, String studyGuideId) {
-		Theme theme = themeInterface.findById(themeId).get();
-		theme.setActive(false);
-		themeInterface.save(theme);
+		System.out.println(themeInterface.findAll());
+		List<Theme> theme = themeInterface.findAll();
+		for(int i=0;i<theme.size();i++)
+		{
+			if(themeId.equals(theme.get(i).getThemeId()))
+			{
+				theme.get(i).setActive(false);
+			}
+			else
+				theme.remove(i);
+		}
 		studyGuideAppService.deleteThemeReference(themeId, studyGuideId);
 		return themeId;
 	}
@@ -68,12 +76,15 @@ public class ThemeAppService {
 	}
 
 	public Theme getTheme(String themeid, String studyGuideId) {
-		if (themeInterface.findById(themeid).isPresent()) {
-			Theme theme = themeInterface.findById(themeid).get();
+		List<Theme> themesList=themeInterface.findAll();
+		Theme theme=themesList.stream().filter(oneTheme-> oneTheme.getThemeId().equals(themeid)).findFirst().get();
+		System.out.println(theme);
+		if (theme!=null) {
+		//	Theme theme = themeInterface.findById(themeid).get();
 			if (theme.getStudyGuideReference().getStudyGuideId().equals( studyGuideId))
 				return theme;
 			else
-				return null;
+				return theme;
 		} else
 			return null;
 	}

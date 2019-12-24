@@ -41,7 +41,8 @@ public class ResourceAppService {
 			List<Resource> resources = resourceInterface.findAll();
 			for(int i=0;i<resources.size();i++)
 			{
-				if(user.getUserid()!=resources.get(i).getCreatedBy().getTeacherid())
+				if(user.getUserid().equals(resources.get(i).getCreatedBy().getTeacherid())) {}
+				else
 					resources.remove(i);
 			}
 			return resources;
